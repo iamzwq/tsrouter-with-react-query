@@ -8,44 +8,33 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router'
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root';
+import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const LayoutLazyImport = createFileRoute('/_layout')();
-const LayoutIndexLazyImport = createFileRoute('/_layout/')();
-const LayoutPostsIndexLazyImport = createFileRoute('/_layout/posts/')();
-const LayoutDashboardIndexLazyImport = createFileRoute('/_layout/dashboard/')();
-const authLoginIndexLazyImport = createFileRoute('/(auth)/login/')();
+const appLayoutLazyImport = createFileRoute('/(app)/_layout')()
+const authLoginIndexLazyImport = createFileRoute('/(auth)/login/')()
+const appLayoutIndexLazyImport = createFileRoute('/(app)/_layout/')()
+const appLayoutPostsIndexLazyImport = createFileRoute('/(app)/_layout/posts/')()
+const appLayoutDashboardIndexLazyImport = createFileRoute(
+  '/(app)/_layout/dashboard/',
+)()
+const appLayoutPostsPostIdIndexLazyImport = createFileRoute(
+  '/(app)/_layout/posts/$postId/',
+)()
 
 // Create/Update Routes
 
-const LayoutLazyRoute = LayoutLazyImport.update({
-  id: '/_layout',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/_layout.lazy').then(d => d.Route));
-
-const LayoutIndexLazyRoute = LayoutIndexLazyImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => LayoutLazyRoute,
-} as any).lazy(() => import('./routes/_layout/index.lazy').then(d => d.Route));
-
-const LayoutPostsIndexLazyRoute = LayoutPostsIndexLazyImport.update({
-  id: '/posts/',
-  path: '/posts/',
-  getParentRoute: () => LayoutLazyRoute,
-} as any).lazy(() => import('./routes/_layout/posts/index.lazy').then(d => d.Route));
-
-const LayoutDashboardIndexLazyRoute = LayoutDashboardIndexLazyImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
-  getParentRoute: () => LayoutLazyRoute,
-} as any).lazy(() => import('./routes/_layout/dashboard/index.lazy').then(d => d.Route));
+const appLayoutLazyRoute = appLayoutLazyImport
+  .update({
+    id: '/(app)/_layout',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() => import('./routes/(app)/_layout.lazy').then((d) => d.Route))
 
 const authLoginIndexLazyRoute = authLoginIndexLazyImport
   .update({
@@ -53,110 +42,172 @@ const authLoginIndexLazyRoute = authLoginIndexLazyImport
     path: '/login/',
     getParentRoute: () => rootRoute,
   } as any)
-  .lazy(() => import('./routes/(auth)/login/index.lazy').then(d => d.Route));
+  .lazy(() => import('./routes/(auth)/login/index.lazy').then((d) => d.Route))
+
+const appLayoutIndexLazyRoute = appLayoutIndexLazyImport
+  .update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => appLayoutLazyRoute,
+  } as any)
+  .lazy(() => import('./routes/(app)/_layout/index.lazy').then((d) => d.Route))
+
+const appLayoutPostsIndexLazyRoute = appLayoutPostsIndexLazyImport
+  .update({
+    id: '/posts/',
+    path: '/posts/',
+    getParentRoute: () => appLayoutLazyRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_layout/posts/index.lazy').then((d) => d.Route),
+  )
+
+const appLayoutDashboardIndexLazyRoute = appLayoutDashboardIndexLazyImport
+  .update({
+    id: '/dashboard/',
+    path: '/dashboard/',
+    getParentRoute: () => appLayoutLazyRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_layout/dashboard/index.lazy').then((d) => d.Route),
+  )
+
+const appLayoutPostsPostIdIndexLazyRoute = appLayoutPostsPostIdIndexLazyImport
+  .update({
+    id: '/posts/$postId/',
+    path: '/posts/$postId/',
+    getParentRoute: () => appLayoutLazyRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_layout/posts/$postId/index.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_layout': {
-      id: '/_layout';
-      path: '';
-      fullPath: '';
-      preLoaderRoute: typeof LayoutLazyImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/_layout/': {
-      id: '/_layout/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof LayoutIndexLazyImport;
-      parentRoute: typeof LayoutLazyImport;
-    };
+    '/(app)/_layout': {
+      id: '/(app)/_layout'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof appLayoutLazyImport
+      parentRoute: typeof undefinedRoute
+    }
+    '/(app)/_layout/': {
+      id: '/(app)/_layout/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof appLayoutIndexLazyImport
+      parentRoute: typeof appLayoutLazyImport
+    }
     '/(auth)/login/': {
-      id: '/(auth)/login/';
-      path: '/login';
-      fullPath: '/login';
-      preLoaderRoute: typeof authLoginIndexLazyImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/_layout/dashboard/': {
-      id: '/_layout/dashboard/';
-      path: '/dashboard';
-      fullPath: '/dashboard';
-      preLoaderRoute: typeof LayoutDashboardIndexLazyImport;
-      parentRoute: typeof LayoutLazyImport;
-    };
-    '/_layout/posts/': {
-      id: '/_layout/posts/';
-      path: '/posts';
-      fullPath: '/posts';
-      preLoaderRoute: typeof LayoutPostsIndexLazyImport;
-      parentRoute: typeof LayoutLazyImport;
-    };
+      id: '/(auth)/login/'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authLoginIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/(app)/_layout/dashboard/': {
+      id: '/(app)/_layout/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof appLayoutDashboardIndexLazyImport
+      parentRoute: typeof appLayoutLazyImport
+    }
+    '/(app)/_layout/posts/': {
+      id: '/(app)/_layout/posts/'
+      path: '/posts'
+      fullPath: '/posts'
+      preLoaderRoute: typeof appLayoutPostsIndexLazyImport
+      parentRoute: typeof appLayoutLazyImport
+    }
+    '/(app)/_layout/posts/$postId/': {
+      id: '/(app)/_layout/posts/$postId/'
+      path: '/posts/$postId'
+      fullPath: '/posts/$postId'
+      preLoaderRoute: typeof appLayoutPostsPostIdIndexLazyImport
+      parentRoute: typeof appLayoutLazyImport
+    }
   }
 }
 
 // Create and export the route tree
 
-interface LayoutLazyRouteChildren {
-  LayoutIndexLazyRoute: typeof LayoutIndexLazyRoute;
-  LayoutDashboardIndexLazyRoute: typeof LayoutDashboardIndexLazyRoute;
-  LayoutPostsIndexLazyRoute: typeof LayoutPostsIndexLazyRoute;
+interface appLayoutLazyRouteChildren {
+  appLayoutIndexLazyRoute: typeof appLayoutIndexLazyRoute
+  appLayoutDashboardIndexLazyRoute: typeof appLayoutDashboardIndexLazyRoute
+  appLayoutPostsIndexLazyRoute: typeof appLayoutPostsIndexLazyRoute
+  appLayoutPostsPostIdIndexLazyRoute: typeof appLayoutPostsPostIdIndexLazyRoute
 }
 
-const LayoutLazyRouteChildren: LayoutLazyRouteChildren = {
-  LayoutIndexLazyRoute: LayoutIndexLazyRoute,
-  LayoutDashboardIndexLazyRoute: LayoutDashboardIndexLazyRoute,
-  LayoutPostsIndexLazyRoute: LayoutPostsIndexLazyRoute,
-};
+const appLayoutLazyRouteChildren: appLayoutLazyRouteChildren = {
+  appLayoutIndexLazyRoute: appLayoutIndexLazyRoute,
+  appLayoutDashboardIndexLazyRoute: appLayoutDashboardIndexLazyRoute,
+  appLayoutPostsIndexLazyRoute: appLayoutPostsIndexLazyRoute,
+  appLayoutPostsPostIdIndexLazyRoute: appLayoutPostsPostIdIndexLazyRoute,
+}
 
-const LayoutLazyRouteWithChildren = LayoutLazyRoute._addFileChildren(LayoutLazyRouteChildren);
+const appLayoutLazyRouteWithChildren = appLayoutLazyRoute._addFileChildren(
+  appLayoutLazyRouteChildren,
+)
 
 export interface FileRoutesByFullPath {
-  '': typeof LayoutLazyRouteWithChildren;
-  '/': typeof LayoutIndexLazyRoute;
-  '/login': typeof authLoginIndexLazyRoute;
-  '/dashboard': typeof LayoutDashboardIndexLazyRoute;
-  '/posts': typeof LayoutPostsIndexLazyRoute;
+  '/': typeof appLayoutIndexLazyRoute
+  '/login': typeof authLoginIndexLazyRoute
+  '/dashboard': typeof appLayoutDashboardIndexLazyRoute
+  '/posts': typeof appLayoutPostsIndexLazyRoute
+  '/posts/$postId': typeof appLayoutPostsPostIdIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof LayoutIndexLazyRoute;
-  '/login': typeof authLoginIndexLazyRoute;
-  '/dashboard': typeof LayoutDashboardIndexLazyRoute;
-  '/posts': typeof LayoutPostsIndexLazyRoute;
+  '/': typeof appLayoutIndexLazyRoute
+  '/login': typeof authLoginIndexLazyRoute
+  '/dashboard': typeof appLayoutDashboardIndexLazyRoute
+  '/posts': typeof appLayoutPostsIndexLazyRoute
+  '/posts/$postId': typeof appLayoutPostsPostIdIndexLazyRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  '/_layout': typeof LayoutLazyRouteWithChildren;
-  '/_layout/': typeof LayoutIndexLazyRoute;
-  '/(auth)/login/': typeof authLoginIndexLazyRoute;
-  '/_layout/dashboard/': typeof LayoutDashboardIndexLazyRoute;
-  '/_layout/posts/': typeof LayoutPostsIndexLazyRoute;
+  __root__: typeof rootRoute
+  '/(app)/_layout': typeof appLayoutLazyRouteWithChildren
+  '/(app)/_layout/': typeof appLayoutIndexLazyRoute
+  '/(auth)/login/': typeof authLoginIndexLazyRoute
+  '/(app)/_layout/dashboard/': typeof appLayoutDashboardIndexLazyRoute
+  '/(app)/_layout/posts/': typeof appLayoutPostsIndexLazyRoute
+  '/(app)/_layout/posts/$postId/': typeof appLayoutPostsPostIdIndexLazyRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '' | '/' | '/login' | '/dashboard' | '/posts';
-  fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/login' | '/dashboard' | '/posts';
-  id: '__root__' | '/_layout' | '/_layout/' | '/(auth)/login/' | '/_layout/dashboard/' | '/_layout/posts/';
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/login' | '/dashboard' | '/posts' | '/posts/$postId'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/login' | '/dashboard' | '/posts' | '/posts/$postId'
+  id:
+    | '__root__'
+    | '/(app)/_layout'
+    | '/(app)/_layout/'
+    | '/(auth)/login/'
+    | '/(app)/_layout/dashboard/'
+    | '/(app)/_layout/posts/'
+    | '/(app)/_layout/posts/$postId/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  LayoutLazyRoute: typeof LayoutLazyRouteWithChildren;
-  authLoginIndexLazyRoute: typeof authLoginIndexLazyRoute;
+  appLayoutLazyRoute: typeof appLayoutLazyRouteWithChildren
+  authLoginIndexLazyRoute: typeof authLoginIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  LayoutLazyRoute: LayoutLazyRouteWithChildren,
+  appLayoutLazyRoute: appLayoutLazyRouteWithChildren,
   authLoginIndexLazyRoute: authLoginIndexLazyRoute,
-};
+}
 
-export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -164,32 +215,37 @@ export const routeTree = rootRoute._addFileChildren(rootRouteChildren)._addFileT
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/_layout",
+        "/(app)/_layout",
         "/(auth)/login/"
       ]
     },
-    "/_layout": {
-      "filePath": "_layout.lazy.tsx",
+    "/(app)/_layout": {
+      "filePath": "(app)/_layout.lazy.tsx",
       "children": [
-        "/_layout/",
-        "/_layout/dashboard/",
-        "/_layout/posts/"
+        "/(app)/_layout/",
+        "/(app)/_layout/dashboard/",
+        "/(app)/_layout/posts/",
+        "/(app)/_layout/posts/$postId/"
       ]
     },
-    "/_layout/": {
-      "filePath": "_layout/index.lazy.tsx",
-      "parent": "/_layout"
+    "/(app)/_layout/": {
+      "filePath": "(app)/_layout/index.lazy.tsx",
+      "parent": "/(app)/_layout"
     },
     "/(auth)/login/": {
       "filePath": "(auth)/login/index.lazy.tsx"
     },
-    "/_layout/dashboard/": {
-      "filePath": "_layout/dashboard/index.lazy.tsx",
-      "parent": "/_layout"
+    "/(app)/_layout/dashboard/": {
+      "filePath": "(app)/_layout/dashboard/index.lazy.tsx",
+      "parent": "/(app)/_layout"
     },
-    "/_layout/posts/": {
-      "filePath": "_layout/posts/index.lazy.tsx",
-      "parent": "/_layout"
+    "/(app)/_layout/posts/": {
+      "filePath": "(app)/_layout/posts/index.lazy.tsx",
+      "parent": "/(app)/_layout"
+    },
+    "/(app)/_layout/posts/$postId/": {
+      "filePath": "(app)/_layout/posts/$postId/index.lazy.tsx",
+      "parent": "/(app)/_layout"
     }
   }
 }

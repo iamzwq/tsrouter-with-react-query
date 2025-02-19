@@ -21,12 +21,14 @@ const queryClient = new QueryClient({
 
 const router = createRouter({
   routeTree,
+  basepath: import.meta.env.VITE_BASE_URL,
   context: { queryClient },
   defaultPendingComponent: () => <div>Loading...</div>,
   defaultErrorComponent: ({ error }) => {
     return <ErrorComponent error={error} />;
   },
-  basepath: import.meta.env.VITE_BASE_URL,
+  defaultPreloadStaleTime: 0,
+  scrollRestoration: true,
 });
 
 // Register the router instance for type safety
