@@ -1,0 +1,1 @@
+import{q as a,j as o}from"./react-CIfi_uNQ.js";const r=a("/(app)/_layout/dashboard/")({component:function(){return o.jsx("div",{children:"Dashboard Page"})}});export{r as Route};
