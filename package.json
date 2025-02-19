@@ -1,6 +1,6 @@
 {
-  "name": "tanstack-r-250218",
-  "homepage": "https://iamzwq.github.io/tanstack-router-with-react-query/",
+  "name": "tsrouter-250218",
+  "homepage": "https://iamzwq.github.io/tsrouter-with-react-query/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
