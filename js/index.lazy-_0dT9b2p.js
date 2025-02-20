@@ -1,1 +1,0 @@
-import{q as o,j as t}from"./react-CIfi_uNQ.js";const e=o("/(app)/_layout/")({component:function(){return t.jsx("div",{children:'Hello "home"!'})}});export{e as Route};

@@ -1,0 +1,1 @@
+import{j as o}from"./react-Fm9TnW5h.js";const e=function(){return o.jsx("div",{children:'Hello "home page"!'})};export{e as component};
