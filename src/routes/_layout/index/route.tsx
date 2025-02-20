@@ -14,11 +14,20 @@ function RouteComponent() {
       <div>
         <OpenModalButton />
       </div>
-      <div>
-        <Button variant="outlined" onClick={() => toast.success('This is a success toast')}>
+      <Stack direction="row" spacing={2}>
+        <Button variant="outlined" color="success" onClick={() => toast.success('This is a success toast')}>
           Success Toast
         </Button>
-      </div>
+        <Button variant="outlined" color="error" onClick={() => toast.error('This is a error toast')}>
+          Error Toast
+        </Button>
+        <Button variant="outlined" color="warning" onClick={() => toast.warning('This is a warning toast')}>
+          Warning Toast
+        </Button>
+        <Button variant="outlined" color="info" onClick={() => toast.info('This is a info toast')}>
+          Info Toast
+        </Button>
+      </Stack>
     </Stack>
   );
 }
