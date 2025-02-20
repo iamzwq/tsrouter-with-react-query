@@ -4,12 +4,9 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { postQueryOptions } from '~/queries/posts';
 
-const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
-
 export const Route = createFileRoute('/_layout/posts_/$postId')({
   component: RouteComponent,
   loader: async ({ params, context: { queryClient } }) => {
-    await sleep(2000);
     const { postId } = params;
     return queryClient.ensureQueryData(postQueryOptions(postId));
   },
