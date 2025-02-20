@@ -25,7 +25,7 @@ function LayoutComponent() {
           <Link to="/dashboard" className="[&.active]:font-bold">
             Dashboard
           </Link>
-          <Link to="/posts" className="[&.active]:font-bold">
+          <Link to="/posts" activeProps={{ className: 'font-bold text-(--palette-primary-main)' }}>
             Posts
           </Link>
         </div>

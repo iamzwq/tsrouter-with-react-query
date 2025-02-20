@@ -1,0 +1,10 @@
+:root:root {
+  --toastify-color-success: var(--palette-success-main);
+  --toastify-color-error: var(--palette-error-main);
+
+  .Toastify__toast {
+    width: unset;
+    max-width: 500px;
+    min-width: var(--toastify-toast-width);
+  }
+}
