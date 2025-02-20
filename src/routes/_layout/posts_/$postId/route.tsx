@@ -23,7 +23,7 @@ function RouteComponent() {
         Go Back to posts
       </Button>
 
-      <Box className="mt-2 flex gap-2 rounded-lg border-2 border-(--palette-primary-main) p-2">
+      <Box className="mt-2 flex gap-2 rounded-lg border-2 border-(--primary-color) p-2">
         <Typography color="primary" fontWeight="bold" variant="h3">
           #{post.id}
         </Typography>

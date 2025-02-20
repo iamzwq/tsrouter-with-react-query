@@ -11,7 +11,7 @@ export const Route = createFileRoute('/_layout')({
 function LayoutComponent() {
   return (
     <>
-      <div className="sticky top-0 flex h-8 gap-4 border-b border-b-(--palette-divider) bg-(--palette-background-default) px-2">
+      <div className="sticky top-0 flex h-8 gap-4 border-b border-b-(--border-color) bg-(--bg-color) px-2">
         <Box className="flex items-center gap-0.5 select-none" component={Link} to="/">
           <ThumbUpAltIcon color="primary" sx={{ fontSize: 36 }} />
           <Typography textTransform="uppercase" fontWeight="bold" fontSize={24} color="primary">
@@ -25,7 +25,7 @@ function LayoutComponent() {
           <Link to="/dashboard" className="[&.active]:font-bold">
             Dashboard
           </Link>
-          <Link to="/posts" activeProps={{ className: 'font-bold text-(--palette-primary-main)' }}>
+          <Link to="/posts" activeProps={{ className: 'font-bold text-(--primary-color)' }}>
             Posts
           </Link>
         </div>
