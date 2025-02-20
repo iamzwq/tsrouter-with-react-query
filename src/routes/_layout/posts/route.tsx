@@ -1,14 +1,17 @@
-import { createLazyFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Box, Stack, Typography } from '@mui/material';
-import { getPosts } from '~/queries/get-posts';
+import { postsQueryOptions } from '~/queries/posts';
 
-export const Route = createLazyFileRoute('/(app)/_layout/posts/')({
+export const Route = createFileRoute('/_layout/posts')({
   component: Posts,
+  loader: ({ context: { queryClient } }) => {
+    return queryClient.ensureQueryData(postsQueryOptions);
+  },
 });
 
 function Posts() {
-  const { data: posts } = useSuspenseQuery(getPosts);
+  const { data: posts } = useSuspenseQuery(postsQueryOptions);
   return (
     <Stack spacing={2} p={1}>
       {posts.slice(0, 10).map(post => (
@@ -20,7 +23,9 @@ function Posts() {
             alignItems: 'center',
             columnGap: 2,
             p: 2,
-            border: '2px solid lightgrey',
+            border: '2px solid',
+            borderColor: 'divider',
+            borderRadius: 2,
             '&:hover': {
               borderColor: 'primary.main',
             },

@@ -1,8 +1,8 @@
-import { createLazyFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { Grid2 } from '@mui/material';
 import { LoginForm } from './-components/login-form';
 
-export const Route = createLazyFileRoute('/(auth)/login/')({
+export const Route = createFileRoute('/(auth)/login')({
   component: RouteComponent,
 });
 
