@@ -9,3 +9,9 @@ export const fetchPost = async (id: string) => {
   const post: Post = await res.json();
   return post;
 };
+
+export const fetchUser = async (id: number) => {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+  const user: User = await res.json();
+  return user;
+};

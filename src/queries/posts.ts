@@ -1,5 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
-import { fetchPost, fetchPosts } from '~/api/posts';
+import { fetchPost, fetchPosts, fetchUser } from '~/api/posts';
 
 export const postsQueryOptions = queryOptions({
   queryKey: ['GET_POSTS'],
@@ -10,4 +10,11 @@ export const postQueryOptions = (postId: string) =>
   queryOptions({
     queryKey: ['GET_POST', postId],
     queryFn: () => fetchPost(postId),
+  });
+
+export const userQueryOptions = (userId: number) =>
+  queryOptions({
+    queryKey: ['GET_USER', userId],
+    queryFn: () => fetchUser(userId),
+    enabled: !!userId,
   });

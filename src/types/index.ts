@@ -5,4 +5,10 @@ declare global {
     body: string;
     title: string;
   };
+
+  type User = {
+    id: number;
+    name: string;
+    email: string;
+  };
 }
