@@ -1,0 +1,1 @@
+import{j as o}from"./react-ghzQdyGf.js";const e=function(){return o.jsx("div",{children:'Hello "home page"!'})};export{e as component};

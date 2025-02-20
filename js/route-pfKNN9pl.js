@@ -1,0 +1,1 @@
+import{j as o}from"./react-ghzQdyGf.js";const r=function(){return o.jsx("div",{children:"Dashboard Page"})};export{r as component};
