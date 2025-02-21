@@ -8,6 +8,9 @@ export const Route = createFileRoute('/_layout/posts/')({
   loader: ({ context: { queryClient } }) => {
     return queryClient.ensureQueryData(postsQueryOptions);
   },
+  head: () => ({
+    meta: [{ title: 'Posts' }],
+  }),
 });
 
 function Posts() {

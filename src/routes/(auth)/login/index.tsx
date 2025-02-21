@@ -4,6 +4,9 @@ import { LoginForm } from './-components/login-form';
 
 export const Route = createFileRoute('/(auth)/login/')({
   component: RouteComponent,
+  head: () => ({
+    meta: [{ title: 'Login' }],
+  }),
 });
 
 function RouteComponent() {

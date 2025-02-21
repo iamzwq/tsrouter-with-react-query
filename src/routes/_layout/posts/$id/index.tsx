@@ -9,6 +9,11 @@ export const Route = createFileRoute('/_layout/posts/$id/')({
   loader: async ({ params, context: { queryClient } }) => {
     return queryClient.ensureQueryData(postQueryOptions(params.id));
   },
+  head: ctx => {
+    return {
+      meta: [{ title: `Post ${ctx.params.id}` }],
+    };
+  },
 });
 
 function RouteComponent() {
