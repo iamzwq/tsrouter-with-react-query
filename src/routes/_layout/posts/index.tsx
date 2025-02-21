@@ -6,8 +6,7 @@ import { postsQueryOptions } from '~/queries/posts';
 export const Route = createFileRoute('/_layout/posts/')({
   component: Posts,
   loader: ({ context: { queryClient } }) => {
-    queryClient.ensureQueryData(postsQueryOptions);
-    return {};
+    return queryClient.ensureQueryData(postsQueryOptions);
   },
 });
 

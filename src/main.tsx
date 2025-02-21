@@ -6,6 +6,7 @@ import NiceModal from '@ebay/nice-modal-react';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './theme';
 import { routeTree } from './routeTree.gen';
+import { FullscreenSpinner } from './components/fullscreen-spinner';
 
 import.meta.glob('./styles/*.css', { eager: true });
 
@@ -24,7 +25,7 @@ const router = createRouter({
   routeTree,
   basepath: import.meta.env.VITE_BASE_URL,
   context: { queryClient },
-  defaultPendingComponent: () => <div>Loading...</div>,
+  defaultPendingComponent: FullscreenSpinner,
   defaultErrorComponent: ({ error }) => {
     return <ErrorComponent error={error} />;
   },
