@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { postQueryOptions, userQueryOptions } from '~/queries/posts';
+import { postQueryOptions, userQueryOptions } from '~/api/posts/queries';
 
 export const Route = createFileRoute('/_layout/posts/$id/')({
   component: RouteComponent,

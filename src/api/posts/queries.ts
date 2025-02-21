@@ -1,5 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
-import { fetchPost, fetchPosts, fetchUser } from '~/api/posts';
+import { fetchPost, fetchPosts, fetchUser } from '.';
 
 export const postsQueryOptions = queryOptions({
   queryKey: ['GET_POSTS'],
