@@ -1,12 +1,13 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Box, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { postsQueryOptions } from '~/queries/posts';
 
-export const Route = createFileRoute('/_layout/posts')({
+export const Route = createFileRoute('/_layout/posts/')({
   component: Posts,
   loader: ({ context: { queryClient } }) => {
-    return queryClient.ensureQueryData(postsQueryOptions);
+    queryClient.ensureQueryData(postsQueryOptions);
+    return {};
   },
 });
 
@@ -15,28 +16,17 @@ function Posts() {
   return (
     <Stack spacing={2} p={1}>
       {posts.slice(0, 10).map(post => (
-        <Box
+        <Link
           key={post.id}
-          component={Link}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            columnGap: 2,
-            p: 2,
-            border: '2px solid',
-            borderColor: 'divider',
-            borderRadius: 2,
-            '&:hover': {
-              borderColor: 'primary.main',
-            },
-          }}
-          to={`/posts/${post.id}`}
+          to="/posts/$id"
+          params={{ id: post.id + '' }}
+          className="flex items-center gap-x-2 rounded-lg border-2 border-(--border-color) p-2 hover:border-(--primary-color)"
         >
           <Typography variant="h4" fontWeight={'bold'} color="primary">
             #{post.id}
           </Typography>
           <Typography variant="body2">{post?.title}</Typography>
-        </Box>
+        </Link>
       ))}
     </Stack>
   );

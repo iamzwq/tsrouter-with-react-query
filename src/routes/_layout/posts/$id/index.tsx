@@ -4,18 +4,18 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { postQueryOptions, userQueryOptions } from '~/queries/posts';
 
-export const Route = createFileRoute('/_layout/posts_/$postId')({
+export const Route = createFileRoute('/_layout/posts/$id/')({
   component: RouteComponent,
   loader: async ({ params, context: { queryClient } }) => {
-    const { postId } = params;
-    return queryClient.ensureQueryData(postQueryOptions(postId));
+    queryClient.ensureQueryData(postQueryOptions(params.id));
+    return {};
   },
 });
 
 function RouteComponent() {
   const navigate = useNavigate();
-  const { postId } = Route.useParams();
-  const { data: post } = useSuspenseQuery(postQueryOptions(postId));
+  const { id } = Route.useParams();
+  const { data: post } = useSuspenseQuery(postQueryOptions(id));
   const { data: user } = useQuery(userQueryOptions(post.userId));
   return (
     <>

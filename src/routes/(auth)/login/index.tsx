@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Grid2 } from '@mui/material';
 import { LoginForm } from './-components/login-form';
 
-export const Route = createFileRoute('/(auth)/login')({
+export const Route = createFileRoute('/(auth)/login/')({
   component: RouteComponent,
 });
 

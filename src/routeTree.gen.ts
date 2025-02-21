@@ -12,34 +12,16 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
-import { Route as LayoutPostsRouteImport } from './routes/_layout/posts/route'
-import { Route as LayoutDashboardRouteImport } from './routes/_layout/dashboard/route'
-import { Route as authLoginRouteImport } from './routes/(auth)/login/route'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index/route'
-import { Route as LayoutPostsPostIdRouteImport } from './routes/_layout/posts_/$postId/route'
+import { Route as LayoutPostsIndexImport } from './routes/_layout/posts/index'
+import { Route as LayoutDashboardIndexImport } from './routes/_layout/dashboard/index'
+import { Route as authLoginIndexImport } from './routes/(auth)/login/index'
+import { Route as LayoutPostsIdIndexImport } from './routes/_layout/posts/$id/index'
 
 // Create/Update Routes
 
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const LayoutPostsRouteRoute = LayoutPostsRouteImport.update({
-  id: '/posts',
-  path: '/posts',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutDashboardRouteRoute = LayoutDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const authLoginRouteRoute = authLoginRouteImport.update({
-  id: '/(auth)/login',
-  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -49,9 +31,27 @@ const LayoutIndexRouteRoute = LayoutIndexRouteImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutPostsPostIdRouteRoute = LayoutPostsPostIdRouteImport.update({
-  id: '/posts_/$postId',
-  path: '/posts/$postId',
+const LayoutPostsIndexRoute = LayoutPostsIndexImport.update({
+  id: '/posts/',
+  path: '/posts/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutDashboardIndexRoute = LayoutDashboardIndexImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const authLoginIndexRoute = authLoginIndexImport.update({
+  id: '/(auth)/login/',
+  path: '/login/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LayoutPostsIdIndexRoute = LayoutPostsIdIndexImport.update({
+  id: '/posts/$id/',
+  path: '/posts/$id/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -73,32 +73,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutImport
     }
-    '/(auth)/login': {
-      id: '/(auth)/login'
+    '/(auth)/login/': {
+      id: '/(auth)/login/'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof authLoginRouteImport
+      preLoaderRoute: typeof authLoginIndexImport
       parentRoute: typeof rootRoute
     }
-    '/_layout/dashboard': {
-      id: '/_layout/dashboard'
+    '/_layout/dashboard/': {
+      id: '/_layout/dashboard/'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof LayoutDashboardRouteImport
+      preLoaderRoute: typeof LayoutDashboardIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/posts': {
-      id: '/_layout/posts'
+    '/_layout/posts/': {
+      id: '/_layout/posts/'
       path: '/posts'
       fullPath: '/posts'
-      preLoaderRoute: typeof LayoutPostsRouteImport
+      preLoaderRoute: typeof LayoutPostsIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/posts_/$postId': {
-      id: '/_layout/posts_/$postId'
-      path: '/posts/$postId'
-      fullPath: '/posts/$postId'
-      preLoaderRoute: typeof LayoutPostsPostIdRouteImport
+    '/_layout/posts/$id/': {
+      id: '/_layout/posts/$id/'
+      path: '/posts/$id'
+      fullPath: '/posts/$id'
+      preLoaderRoute: typeof LayoutPostsIdIndexImport
       parentRoute: typeof LayoutImport
     }
   }
@@ -108,16 +108,16 @@ declare module '@tanstack/react-router' {
 
 interface LayoutRouteChildren {
   LayoutIndexRouteRoute: typeof LayoutIndexRouteRoute
-  LayoutDashboardRouteRoute: typeof LayoutDashboardRouteRoute
-  LayoutPostsRouteRoute: typeof LayoutPostsRouteRoute
-  LayoutPostsPostIdRouteRoute: typeof LayoutPostsPostIdRouteRoute
+  LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
+  LayoutPostsIndexRoute: typeof LayoutPostsIndexRoute
+  LayoutPostsIdIndexRoute: typeof LayoutPostsIdIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutIndexRouteRoute: LayoutIndexRouteRoute,
-  LayoutDashboardRouteRoute: LayoutDashboardRouteRoute,
-  LayoutPostsRouteRoute: LayoutPostsRouteRoute,
-  LayoutPostsPostIdRouteRoute: LayoutPostsPostIdRouteRoute,
+  LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
+  LayoutPostsIndexRoute: LayoutPostsIndexRoute,
+  LayoutPostsIdIndexRoute: LayoutPostsIdIndexRoute,
 }
 
 const LayoutRouteWithChildren =
@@ -126,54 +126,54 @@ const LayoutRouteWithChildren =
 export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
   '/': typeof LayoutIndexRouteRoute
-  '/login': typeof authLoginRouteRoute
-  '/dashboard': typeof LayoutDashboardRouteRoute
-  '/posts': typeof LayoutPostsRouteRoute
-  '/posts/$postId': typeof LayoutPostsPostIdRouteRoute
+  '/login': typeof authLoginIndexRoute
+  '/dashboard': typeof LayoutDashboardIndexRoute
+  '/posts': typeof LayoutPostsIndexRoute
+  '/posts/$id': typeof LayoutPostsIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof LayoutIndexRouteRoute
-  '/login': typeof authLoginRouteRoute
-  '/dashboard': typeof LayoutDashboardRouteRoute
-  '/posts': typeof LayoutPostsRouteRoute
-  '/posts/$postId': typeof LayoutPostsPostIdRouteRoute
+  '/login': typeof authLoginIndexRoute
+  '/dashboard': typeof LayoutDashboardIndexRoute
+  '/posts': typeof LayoutPostsIndexRoute
+  '/posts/$id': typeof LayoutPostsIdIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_layout': typeof LayoutRouteWithChildren
   '/_layout/': typeof LayoutIndexRouteRoute
-  '/(auth)/login': typeof authLoginRouteRoute
-  '/_layout/dashboard': typeof LayoutDashboardRouteRoute
-  '/_layout/posts': typeof LayoutPostsRouteRoute
-  '/_layout/posts_/$postId': typeof LayoutPostsPostIdRouteRoute
+  '/(auth)/login/': typeof authLoginIndexRoute
+  '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
+  '/_layout/posts/': typeof LayoutPostsIndexRoute
+  '/_layout/posts/$id/': typeof LayoutPostsIdIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/' | '/login' | '/dashboard' | '/posts' | '/posts/$postId'
+  fullPaths: '' | '/' | '/login' | '/dashboard' | '/posts' | '/posts/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard' | '/posts' | '/posts/$postId'
+  to: '/' | '/login' | '/dashboard' | '/posts' | '/posts/$id'
   id:
     | '__root__'
     | '/_layout'
     | '/_layout/'
-    | '/(auth)/login'
-    | '/_layout/dashboard'
-    | '/_layout/posts'
-    | '/_layout/posts_/$postId'
+    | '/(auth)/login/'
+    | '/_layout/dashboard/'
+    | '/_layout/posts/'
+    | '/_layout/posts/$id/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
-  authLoginRouteRoute: typeof authLoginRouteRoute
+  authLoginIndexRoute: typeof authLoginIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
-  authLoginRouteRoute: authLoginRouteRoute,
+  authLoginIndexRoute: authLoginIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -187,35 +187,35 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_layout",
-        "/(auth)/login"
+        "/(auth)/login/"
       ]
     },
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
         "/_layout/",
-        "/_layout/dashboard",
-        "/_layout/posts",
-        "/_layout/posts_/$postId"
+        "/_layout/dashboard/",
+        "/_layout/posts/",
+        "/_layout/posts/$id/"
       ]
     },
     "/_layout/": {
       "filePath": "_layout/index/route.tsx",
       "parent": "/_layout"
     },
-    "/(auth)/login": {
-      "filePath": "(auth)/login/route.tsx"
+    "/(auth)/login/": {
+      "filePath": "(auth)/login/index.tsx"
     },
-    "/_layout/dashboard": {
-      "filePath": "_layout/dashboard/route.tsx",
+    "/_layout/dashboard/": {
+      "filePath": "_layout/dashboard/index.tsx",
       "parent": "/_layout"
     },
-    "/_layout/posts": {
-      "filePath": "_layout/posts/route.tsx",
+    "/_layout/posts/": {
+      "filePath": "_layout/posts/index.tsx",
       "parent": "/_layout"
     },
-    "/_layout/posts_/$postId": {
-      "filePath": "_layout/posts_/$postId/route.tsx",
+    "/_layout/posts/$id/": {
+      "filePath": "_layout/posts/$id/index.tsx",
       "parent": "/_layout"
     }
   }
