@@ -11,7 +11,10 @@ export const Route = createFileRoute('/_layout')({
 function LayoutComponent() {
   return (
     <>
-      <div className="sticky top-0 flex h-8 gap-4 border-b border-b-(--border-color) bg-(--bg-color) px-2">
+      <Box
+        className="sticky top-0 flex h-8 gap-4 border-b border-b-(--border-color) bg-(--bg-color) px-2"
+        sx={{ zIndex: theme => theme.zIndex.appBar }}
+      >
         <Box className="flex items-center gap-0.5 select-none" component={Link} to="/">
           <ThumbUpAltIcon color="primary" sx={{ fontSize: 36 }} />
           <Typography textTransform="uppercase" fontWeight="bold" fontSize={24} color="primary">
@@ -35,7 +38,7 @@ function LayoutComponent() {
           </IconButton>
           <AccountMenu />
         </div>
-      </div>
+      </Box>
       <main className="p-2">
         <Outlet />
       </main>
