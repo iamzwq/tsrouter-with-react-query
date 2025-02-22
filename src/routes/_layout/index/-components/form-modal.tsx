@@ -33,10 +33,10 @@ function FormModalBase({ title }: { title: React.ReactNode }) {
       firstName: '',
       lastName: '',
       product: '',
-      active: true,
-      status: ['2'],
-      category: '1',
-      department: '',
+      active: false,
+      status: [],
+      category: '',
+      department: [],
     },
   });
 
@@ -56,15 +56,6 @@ function FormModalBase({ title }: { title: React.ReactNode }) {
       <DialogContent dividers>
         <FormProvider {...methods}>
           <Stack component="form" spacing={2} onSubmit={onSubmit}>
-            <ControlledAutocomplete
-              name="department"
-              label="Department"
-              size="small"
-              options={[
-                { value: '1', label: 'Department 1' },
-                { value: '2', label: 'Department 2' },
-              ]}
-            />
             <ControlledTextField
               name="firstName"
               label="FirstName"
@@ -86,6 +77,17 @@ function FormModalBase({ title }: { title: React.ReactNode }) {
                   message: 'LastName must be at least 3 characters',
                 },
               }}
+            />
+            <ControlledAutocomplete
+              name="department"
+              label="Department"
+              size="small"
+              multiple
+              disableCloseOnSelect
+              options={[
+                { value: '1', label: 'Department 1' },
+                { value: '2', label: 'Department 2' },
+              ]}
             />
             <ControlledSelect
               name="product"
@@ -128,7 +130,7 @@ function FormModalBase({ title }: { title: React.ReactNode }) {
               name="description"
               label="Description"
               multiline
-              rows={4}
+              rows={2}
               rules={{
                 required: 'Description is required',
                 minLength: {
