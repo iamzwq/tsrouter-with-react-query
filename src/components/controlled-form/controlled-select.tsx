@@ -35,7 +35,7 @@ export function ControlledSelect<
   return (
     <FormControl error={!!fieldState.error} fullWidth>
       {label ? <InputLabel>{label}</InputLabel> : null}
-      <Select {...field} {...props} value={field.value ?? ''} input={<OutlinedInput label={label} notched />}>
+      <Select {...field} {...props} value={field.value ?? ''} input={<OutlinedInput label={label} />}>
         {options.map(option => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}

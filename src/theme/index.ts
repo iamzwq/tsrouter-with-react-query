@@ -74,6 +74,11 @@ export const theme = createTheme({
         shrink: true,
       },
     },
+    MuiOutlinedInput: {
+      defaultProps: {
+        notched: true,
+      },
+    },
     MuiTooltip: {
       defaultProps: {
         arrow: true,
