@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Stack, Typography } from '@mui/material';
-import { postsQueryOptions } from '~/api/posts/queries';
+import { postsQueryOptions } from '~/services/posts/queries';
 
 export const Route = createFileRoute('/_layout/posts/')({
   component: Posts,
