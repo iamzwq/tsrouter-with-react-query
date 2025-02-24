@@ -1,10 +1,5 @@
 import { ControllerProps, FieldPath, FieldValues, useController, useFormContext } from 'react-hook-form';
-import { FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText } from '@mui/material';
-
-type Option = {
-  value: string;
-  label: string;
-};
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel } from '@mui/material';
 
 type ControlledCheckboxGroupProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -54,8 +49,8 @@ export function ControlledCheckboxGroup<
             key={option.value}
             control={
               <Checkbox
-                checked={((field.value as string[]) || []).includes(option.value)}
-                onChange={() => handleChange(option.value)}
+                checked={((field.value as string[]) || []).includes(option.value as string)}
+                onChange={() => handleChange(option.value as string)}
               />
             }
             label={option.label}

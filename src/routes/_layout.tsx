@@ -1,8 +1,8 @@
+import SettingsIcon from '@mui/icons-material/Settings';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { Box, IconButton, Typography } from '@mui/material';
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { AccountMenu } from '~/layout/account-menu';
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 export const Route = createFileRoute('/_layout')({
   component: LayoutComponent,

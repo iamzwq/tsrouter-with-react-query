@@ -1,15 +1,15 @@
-import NiceModal, { useModal } from '@ebay/nice-modal-react';
-import { Box, Button, Dialog, DialogContent, DialogTitle, FormLabel, Stack } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
+import NiceModal, { useModal } from '@ebay/nice-modal-react';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, Dialog, DialogContent, DialogTitle, FormLabel, Stack } from '@mui/material';
 import {
   ControlledAutocomplete,
-  ControlledTextField,
-  ControlledSelect,
   ControlledCheckbox,
   ControlledCheckboxGroup,
   ControlledRadioGroup,
+  ControlledSelect,
+  ControlledTextField,
 } from '~/components/controlled-form';
-import CloseIcon from '@mui/icons-material/Close';
 
 export function OpenFormModalButton() {
   return (

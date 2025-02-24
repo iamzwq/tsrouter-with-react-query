@@ -1,6 +1,6 @@
+import { FormProvider, useForm } from 'react-hook-form';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from '@tanstack/react-router';
-import { FormProvider, useForm } from 'react-hook-form';
 import { ControlledTextField } from '~/components/controlled-form';
 
 export function LoginForm() {

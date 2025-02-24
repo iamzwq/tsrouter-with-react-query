@@ -1,5 +1,5 @@
 import { ControllerProps, FieldPath, FieldValues, useController, useFormContext } from 'react-hook-form';
-import { Select, SelectProps, FormControl, FormHelperText, InputLabel, MenuItem, OutlinedInput } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, OutlinedInput, Select, SelectProps } from '@mui/material';
 
 type ControlledSelectProps<
   TFieldValues extends FieldValues = FieldValues,
