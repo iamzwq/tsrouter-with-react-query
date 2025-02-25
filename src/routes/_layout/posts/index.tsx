@@ -6,7 +6,7 @@ import { postsQueryOptions } from '~/services/posts/queries';
 export const Route = createFileRoute('/_layout/posts/')({
   component: Posts,
   loader: ({ context: { queryClient } }) => {
-    return queryClient.ensureQueryData(postsQueryOptions);
+    queryClient.ensureQueryData(postsQueryOptions);
   },
   head: () => ({
     meta: [{ title: 'Posts' }],
@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_layout/posts/')({
 function Posts() {
   const { data: posts } = useSuspenseQuery(postsQueryOptions);
   return (
-    <Stack spacing={2} p={1}>
+    <Stack spacing={2}>
       {posts.slice(0, 10).map(post => (
         <Link
           key={post.id}
