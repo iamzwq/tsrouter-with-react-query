@@ -9,7 +9,22 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     base: env.VITE_BASE_URL,
-    plugins: [react(), tailwindcss(), TanStackRouterVite({ autoCodeSplitting: true })],
+    plugins: [
+      react(),
+      tailwindcss(),
+      TanStackRouterVite({ autoCodeSplitting: true }),
+      {
+        name: 'version-generator',
+        apply: 'build',
+        generateBundle() {
+          this.emitFile({
+            type: 'asset',
+            fileName: 'version.json',
+            source: JSON.stringify({ version: `${Date.now()}` }),
+          });
+        },
+      },
+    ],
     resolve: {
       alias: {
         '~': fileURLToPath(new URL('./src', import.meta.url)),
