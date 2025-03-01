@@ -1,7 +1,11 @@
-export const fetchPosts = async () => {
+export const fetchPosts = async (pagination: Pagination) => {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
   const posts: Post[] = await res.json();
-  return posts;
+  // pagination
+  const start = (pagination.page - 1) * pagination.limit;
+  const end = start + pagination.limit;
+  const paginatedPosts = posts.slice(start, end);
+  return paginatedPosts;
 };
 
 export const fetchPost = async (id: string) => {

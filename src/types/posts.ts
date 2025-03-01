@@ -11,4 +11,9 @@ declare global {
     name: string;
     email: string;
   };
+
+  type Pagination = {
+    page: number;
+    limit: number;
+  };
 }
