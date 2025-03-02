@@ -3,7 +3,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { postsQueryOptions } from '~/services/posts/queries';
+import { postsQueryOptions } from './-api';
 
 export const Route = createFileRoute('/_layout/posts/')({
   component: Posts,

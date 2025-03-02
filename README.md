@@ -43,6 +43,25 @@
 2. **自定义受控组件** - 通过 `react-hook-form` + `MUI` 实现自定义受控组件
 3. **自定义主题** - 深度定制主题系统（theme目录）
 
+```
+.
+├── __root.tsx // root file
+├── posts
+│   ├── -components // 🐢 在根中使用的 UI 组件
+│   ├── -api // 🦋 根 / 内使用的 API 通信 Hooks
+│   ├── -types // 🐠 在根中使用的类型定义
+│   ├── -functions // 🦐 在根中使用的函数
+│   ├── route.lazy.tsx // 🐕 Lazy Routeの対象
+│   ├── route.tsx // 🦈 Critical Route
+│   └── $postId // posts/と同様
+│       ├── -components
+│       ├── -api
+│       ├── -types
+│       ├── -functions
+│       ├── route.lazy.tsx
+│       └── route.tsx
+```
+
 ### React 组件精选:
 
 - **Form 表单**: [react-hook-form](https://www.npmjs.com/package/react-hook-form)
