@@ -31,6 +31,9 @@ function LayoutComponent() {
           <Link to="/posts" activeProps={{ className: 'font-bold text-(--primary-color)' }}>
             Posts
           </Link>
+          <Link to="/echarts" activeProps={{ className: 'font-bold text-(--primary-color)' }}>
+            Echarts
+          </Link>
         </div>
         <div className="ml-auto flex items-center">
           <IconButton className="animate-spin">

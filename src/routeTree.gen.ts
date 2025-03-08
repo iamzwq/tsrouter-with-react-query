@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index/route'
 import { Route as LayoutPostsIndexImport } from './routes/_layout/posts/index'
+import { Route as LayoutEchartsIndexImport } from './routes/_layout/echarts/index'
 import { Route as LayoutDashboardIndexImport } from './routes/_layout/dashboard/index'
 import { Route as authLoginIndexImport } from './routes/(auth)/login/index'
 import { Route as LayoutPostsIdIndexImport } from './routes/_layout/posts/$id/index'
@@ -34,6 +35,12 @@ const LayoutIndexRouteRoute = LayoutIndexRouteImport.update({
 const LayoutPostsIndexRoute = LayoutPostsIndexImport.update({
   id: '/posts/',
   path: '/posts/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutEchartsIndexRoute = LayoutEchartsIndexImport.update({
+  id: '/echarts/',
+  path: '/echarts/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -87,6 +94,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDashboardIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/echarts/': {
+      id: '/_layout/echarts/'
+      path: '/echarts'
+      fullPath: '/echarts'
+      preLoaderRoute: typeof LayoutEchartsIndexImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/posts/': {
       id: '/_layout/posts/'
       path: '/posts'
@@ -109,6 +123,7 @@ declare module '@tanstack/react-router' {
 interface LayoutRouteChildren {
   LayoutIndexRouteRoute: typeof LayoutIndexRouteRoute
   LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
+  LayoutEchartsIndexRoute: typeof LayoutEchartsIndexRoute
   LayoutPostsIndexRoute: typeof LayoutPostsIndexRoute
   LayoutPostsIdIndexRoute: typeof LayoutPostsIdIndexRoute
 }
@@ -116,6 +131,7 @@ interface LayoutRouteChildren {
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutIndexRouteRoute: LayoutIndexRouteRoute,
   LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
+  LayoutEchartsIndexRoute: LayoutEchartsIndexRoute,
   LayoutPostsIndexRoute: LayoutPostsIndexRoute,
   LayoutPostsIdIndexRoute: LayoutPostsIdIndexRoute,
 }
@@ -128,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRouteRoute
   '/login': typeof authLoginIndexRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
+  '/echarts': typeof LayoutEchartsIndexRoute
   '/posts': typeof LayoutPostsIndexRoute
   '/posts/$id': typeof LayoutPostsIdIndexRoute
 }
@@ -136,6 +153,7 @@ export interface FileRoutesByTo {
   '/': typeof LayoutIndexRouteRoute
   '/login': typeof authLoginIndexRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
+  '/echarts': typeof LayoutEchartsIndexRoute
   '/posts': typeof LayoutPostsIndexRoute
   '/posts/$id': typeof LayoutPostsIdIndexRoute
 }
@@ -146,21 +164,30 @@ export interface FileRoutesById {
   '/_layout/': typeof LayoutIndexRouteRoute
   '/(auth)/login/': typeof authLoginIndexRoute
   '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
+  '/_layout/echarts/': typeof LayoutEchartsIndexRoute
   '/_layout/posts/': typeof LayoutPostsIndexRoute
   '/_layout/posts/$id/': typeof LayoutPostsIdIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/' | '/login' | '/dashboard' | '/posts' | '/posts/$id'
+  fullPaths:
+    | ''
+    | '/'
+    | '/login'
+    | '/dashboard'
+    | '/echarts'
+    | '/posts'
+    | '/posts/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard' | '/posts' | '/posts/$id'
+  to: '/' | '/login' | '/dashboard' | '/echarts' | '/posts' | '/posts/$id'
   id:
     | '__root__'
     | '/_layout'
     | '/_layout/'
     | '/(auth)/login/'
     | '/_layout/dashboard/'
+    | '/_layout/echarts/'
     | '/_layout/posts/'
     | '/_layout/posts/$id/'
   fileRoutesById: FileRoutesById
@@ -195,6 +222,7 @@ export const routeTree = rootRoute
       "children": [
         "/_layout/",
         "/_layout/dashboard/",
+        "/_layout/echarts/",
         "/_layout/posts/",
         "/_layout/posts/$id/"
       ]
@@ -208,6 +236,10 @@ export const routeTree = rootRoute
     },
     "/_layout/dashboard/": {
       "filePath": "_layout/dashboard/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/echarts/": {
+      "filePath": "_layout/echarts/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/posts/": {
