@@ -53,6 +53,7 @@ export default defineConfig(({ mode }) => {
             ],
             mui: ['@mui/material', '@mui/icons-material', '@emotion/react', '@emotion/styled'],
             // vendor: ["dayjs"],
+            echarts: ['echarts'],
           },
         },
       },
