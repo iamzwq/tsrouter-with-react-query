@@ -1,7 +1,5 @@
 {
-  "cSpell.words": [
-    "tsrouter"
-  ],
+  "cSpell.words": ["tsrouter"],
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
   },
@@ -13,5 +11,5 @@
   },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-  },
+  }
 }
