@@ -1,8 +1,9 @@
 import SettingsIcon from '@mui/icons-material/Settings';
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { Box, IconButton, Typography } from '@mui/material';
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import { AccountMenu } from '~/layout/account-menu';
+
+import LogoIconUrl from '/favicon.svg';
 
 export const Route = createFileRoute('/_layout')({
   component: LayoutComponent,
@@ -16,7 +17,7 @@ function LayoutComponent() {
         sx={{ zIndex: theme => theme.zIndex.appBar }}
       >
         <Box className="flex items-center gap-0.5 select-none" component={Link} to="/">
-          <ThumbUpAltIcon color="primary" sx={{ fontSize: 36 }} />
+          <img src={LogoIconUrl} alt="logo-icon" className="size-4" />
           <Typography textTransform="uppercase" fontWeight="bold" fontSize={24} color="primary">
             tsrouter
           </Typography>

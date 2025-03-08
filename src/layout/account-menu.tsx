@@ -17,7 +17,7 @@ export function AccountMenu() {
   return (
     <>
       <IconButton onClick={handleClick} size="small" sx={{ ml: 1 }}>
-        <Avatar sx={{ width: 32, height: 32 }} />
+        <Avatar src="https://multiavatar.com/img/logo-animated.gif?v=003" sx={{ width: 32, height: 32 }} />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
