@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { Box, Grid2 } from '@mui/material';
+import { useMemo, useState } from 'react';
+import { Box, Button, Grid2 } from '@mui/material';
 import { createFileRoute } from '@tanstack/react-router';
 import type { EChartsOption } from 'echarts';
 import * as echarts from 'echarts/core';
@@ -10,6 +10,8 @@ export const Route = createFileRoute('/_layout/echarts/')({
 });
 
 function EChartsComponent() {
+  const [loading, setLoading] = useState(false);
+
   const options = useMemo<EChartsOption>(() => {
     return {
       title: {
@@ -23,9 +25,9 @@ function EChartsComponent() {
       },
       yAxis: {
         type: 'value',
-        axisLine: {
-          show: true,
-        },
+      },
+      tooltip: {
+        trigger: 'axis',
       },
       series: [
         {
@@ -57,11 +59,25 @@ function EChartsComponent() {
     };
   }, []);
 
-  const chartRef = useECharts(options);
+  const { chartRef } = useECharts({
+    options,
+    // theme: customTheme,
+    theme: 'dark',
+    onChartReady: chart => {
+      // 图表初始化完成后的回调
+      chart.on('click', params => {
+        console.log('click', params);
+      });
+    },
+    loading: loading,
+  });
   return (
     <Grid2 container>
       <Grid2 size={{ xs: 12, md: 6 }}>
         <Box ref={chartRef} sx={{ height: 400 }} />
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 6 }}>
+        <Button onClick={() => setLoading(!loading)}>Loading</Button>
       </Grid2>
     </Grid2>
   );
