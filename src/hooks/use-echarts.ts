@@ -12,7 +12,7 @@ import {
 import * as echarts from 'echarts/core';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
-import dartTheme from '~/assets/echarts-theme/dark.json';
+import darkTheme from '~/assets/echarts-theme/dark.json';
 import { useMemoizedFn } from './use-memoized-fn';
 
 echarts.use([
@@ -27,7 +27,7 @@ echarts.use([
   TransformComponent,
 ]);
 
-echarts.registerTheme('dark', dartTheme);
+echarts.registerTheme('dark', darkTheme);
 
 interface UseEChartsProps {
   options: EChartsOption; // 图表配置项

@@ -19,9 +19,6 @@ function EChartsComponent() {
       },
       xAxis: {
         type: 'category',
-        axisTick: {
-          alignWithLabel: true,
-        },
       },
       yAxis: {
         type: 'value',
