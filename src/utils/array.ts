@@ -1,14 +1,16 @@
 /**
  * 对象数组去重策略
  */
-const enum UniqueStrategy {
+export const UniqueStrategyObj = {
   /** 保留第一个出现的元素 */
-  KEEP_FIRST = 'keepFirst',
+  KEEP_FIRST: 'keepFirst',
   /** 保留最后一个出现的元素 */
-  KEEP_LAST = 'keepLast',
+  KEEP_LAST: 'keepLast',
   /** 合并重复项 */
-  MERGE = 'merge',
-}
+  MERGE: 'merge',
+} as const;
+
+type UniqueStrategy = ObjectToEnum<typeof UniqueStrategyObj>;
 
 interface UniqueOptions<T> {
   /** 用于确定唯一性的键或键生成函数 */
@@ -51,7 +53,7 @@ interface UniqueOptions<T> {
  * });
  */
 export function uniqueObjectArray<T extends object>(array: T[], options: UniqueOptions<T>): T[] {
-  const { key, strategy = UniqueStrategy.KEEP_FIRST, mergeFunction } = options;
+  const { key, strategy = UniqueStrategyObj.KEEP_FIRST, mergeFunction } = options;
 
   const getKey = typeof key === 'function' ? key : (item: T) => String(item[key]);
 
@@ -61,17 +63,17 @@ export function uniqueObjectArray<T extends object>(array: T[], options: UniqueO
     const itemKey = getKey(item);
 
     switch (strategy) {
-      case UniqueStrategy.KEEP_FIRST:
+      case UniqueStrategyObj.KEEP_FIRST:
         if (!map.has(itemKey)) {
           map.set(itemKey, item);
         }
         break;
 
-      case UniqueStrategy.KEEP_LAST:
+      case UniqueStrategyObj.KEEP_LAST:
         map.set(itemKey, item);
         break;
 
-      case UniqueStrategy.MERGE:
+      case UniqueStrategyObj.MERGE:
         if (map.has(itemKey) && mergeFunction) {
           const existingItem = map.get(itemKey)!;
           map.set(itemKey, mergeFunction(existingItem, item));
@@ -83,4 +85,101 @@ export function uniqueObjectArray<T extends object>(array: T[], options: UniqueO
   }
 
   return Array.from(map.values());
+}
+
+/**
+ * 排序条件
+ */
+export interface SortCondition<T> {
+  /** 排序字段或自定义排序函数 */
+  key: keyof T | ((item: T) => any);
+  /** 排序方向 */
+  direction?: SortDirection;
+  /** 自定义比较函数 */
+  comparator?: (a: any, b: any) => number;
+}
+
+/**
+ * 对象数组排序
+ * @param array 需要排序的对象数组
+ * @param conditions 排序条件，可以是单个条件或条件数组
+ * @returns 排序后的新数组
+ * @example
+ * // 基本用法 - 按单个字段升序排序
+ * const sortedUsers = sortObjectArray(users, { key: 'age' });
+ *
+ * // 按单个字段降序排序
+ * const sortedByAgeDesc = sortObjectArray(users, {
+ *   key: 'age',
+ *   direction: 'desc'
+ * });
+ *
+ * // 使用自定义排序函数
+ * const sortedByNameLength = sortObjectArray(users, {
+ *   key: user => user.name.length
+ * });
+ *
+ * // 多字段排序 - 先按年龄降序，再按名字升序
+ * const sortedByAgeAndName = sortObjectArray(users, [
+ *   { key: 'age', direction: 'desc' },
+ *   { key: 'name' }
+ * ]);
+ *
+ * // 使用自定义比较函数
+ * const sortedWithCustomComparator = sortObjectArray(users, {
+ *   key: 'name',
+ *   comparator: (a, b) => a.localeCompare(b, 'zh-CN')
+ * });
+ */
+export function sortObjectArray<T extends object>(array: T[], conditions: SortCondition<T> | SortCondition<T>[]): T[] {
+  // 创建数组副本以避免修改原数组
+  const result = [...array];
+
+  // 确保条件是数组形式
+  const sortConditions = Array.isArray(conditions) ? conditions : [conditions];
+
+  return result.sort((a, b) => {
+    // 遍历所有排序条件
+    for (const condition of sortConditions) {
+      const { key, direction = 'asc', comparator } = condition;
+
+      // 获取比较值
+      const getValue = typeof key === 'function' ? key : (item: T) => item[key];
+      const valueA = getValue(a);
+      const valueB = getValue(b);
+
+      // 使用自定义比较函数或默认比较
+      let compareResult: number;
+
+      if (comparator) {
+        compareResult = comparator(valueA, valueB);
+      } else {
+        // 默认比较逻辑
+        if (valueA === valueB) {
+          compareResult = 0;
+        } else if (valueA === null || valueA === undefined) {
+          compareResult = 1; // null/undefined 值排在后面
+        } else if (valueB === null || valueB === undefined) {
+          compareResult = -1; // null/undefined 值排在后面
+        } else if (typeof valueA === 'string' && typeof valueB === 'string') {
+          compareResult = valueA.localeCompare(valueB);
+        } else {
+          compareResult = valueA < valueB ? -1 : 1;
+        }
+      }
+
+      // 如果是降序，反转比较结果
+      if (direction === 'desc') {
+        compareResult = -compareResult;
+      }
+
+      // 如果当前条件可以确定顺序，则返回结果
+      if (compareResult !== 0) {
+        return compareResult;
+      }
+    }
+
+    // 所有条件都相等，保持原顺序
+    return 0;
+  });
 }
