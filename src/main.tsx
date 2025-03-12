@@ -43,7 +43,13 @@ declare module '@tanstack/react-router' {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme} noSsr>
+      <ThemeProvider
+        theme={theme}
+        noSsr
+        modeStorageKey="app-mode"
+        colorSchemeStorageKey="app-color-scheme"
+        disableTransitionOnChange
+      >
         <NiceModal.Provider>
           <RouterProvider router={router} />
         </NiceModal.Provider>

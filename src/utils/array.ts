@@ -1,7 +1,7 @@
 /**
  * 对象数组去重策略
  */
-export const UniqueStrategyObj = {
+export const UniqueStrategy = {
   /** 保留第一个出现的元素 */
   KEEP_FIRST: 'keepFirst',
   /** 保留最后一个出现的元素 */
@@ -10,13 +10,13 @@ export const UniqueStrategyObj = {
   MERGE: 'merge',
 } as const;
 
-type UniqueStrategy = ObjectToEnum<typeof UniqueStrategyObj>;
+type UniqueStrategyType = ObjectToEnum<typeof UniqueStrategy>;
 
 interface UniqueOptions<T> {
   /** 用于确定唯一性的键或键生成函数 */
   key: keyof T | ((item: T) => string);
   /** 去重策略 */
-  strategy?: UniqueStrategy;
+  strategy?: UniqueStrategyType;
   /** 当策略为MERGE时的合并函数 */
   mergeFunction?: (existing: T, newItem: T) => T;
 }
@@ -53,7 +53,7 @@ interface UniqueOptions<T> {
  * });
  */
 export function uniqueObjectArray<T extends object>(array: T[], options: UniqueOptions<T>): T[] {
-  const { key, strategy = UniqueStrategyObj.KEEP_FIRST, mergeFunction } = options;
+  const { key, strategy = UniqueStrategy.KEEP_FIRST, mergeFunction } = options;
 
   const getKey = typeof key === 'function' ? key : (item: T) => String(item[key]);
 
@@ -63,17 +63,17 @@ export function uniqueObjectArray<T extends object>(array: T[], options: UniqueO
     const itemKey = getKey(item);
 
     switch (strategy) {
-      case UniqueStrategyObj.KEEP_FIRST:
+      case UniqueStrategy.KEEP_FIRST:
         if (!map.has(itemKey)) {
           map.set(itemKey, item);
         }
         break;
 
-      case UniqueStrategyObj.KEEP_LAST:
+      case UniqueStrategy.KEEP_LAST:
         map.set(itemKey, item);
         break;
 
-      case UniqueStrategyObj.MERGE:
+      case UniqueStrategy.MERGE:
         if (map.has(itemKey) && mergeFunction) {
           const existingItem = map.get(itemKey)!;
           map.set(itemKey, mergeFunction(existingItem, item));
