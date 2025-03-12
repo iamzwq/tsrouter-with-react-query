@@ -1,17 +1,22 @@
 interface HeaderItem {
   key: string;
-  label?: string;
+  label: string;
 }
 
 type FormatterFunction = (value: any, row: Record<string, any>) => string;
 
 interface Options {
-  data?: Record<string, any>[];
-  header?: HeaderItem[];
+  data: Record<string, any>[];
+  header: HeaderItem[];
   formatters?: Record<string, FormatterFunction>;
   withBom?: boolean;
   delimiter?: string;
-  filename: string;
+  filename?: string;
+  // 新增配置项
+  quoteStrings?: boolean;
+  escapeSpecialChars?: boolean;
+  newLine?: string;
+  transformHeader?: (header: string) => string;
 }
 
 /**
@@ -23,60 +28,77 @@ interface Options {
  * @param options.withBom 是否包含 BOM 标记，用于 Excel 正确识别 UTF-8 编码
  * @param options.delimiter 分隔符，默认为逗号
  * @param options.filename 文件名
+ * @param options.quoteStrings 是否对所有字符串使用引号，默认为 false
+ * @param options.escapeSpecialChars 是否转义特殊字符，默认为 true
+ * @param options.newLine 换行符，默认为 \n
  */
 export function json2csv({
-  data = [],
-  header = [],
+  data,
+  header,
   formatters = {},
   withBom = true,
   delimiter = ',',
-  filename,
+  filename = 'export.csv',
+  quoteStrings = false,
+  escapeSpecialChars = true,
+  newLine = '\n',
 }: Options) {
-  if (!Array.isArray(data) || data.length === 0) {
+  if (!Array.isArray(data) || data.length === 0 || header.length === 0) {
     return '';
   }
 
-  // 如果没有提供 header，则使用第一个对象的键作为 header
-  const keys = header.length > 0 ? header.map(h => h.key) : Object.keys(data[0]);
+  // 获取数据的键
+  const keys = header.map(h => h.key);
 
-  // 创建 CSV 头行，使用 label 或 key 作为列标题
-  const headerRow = header.length > 0 ? header.map(h => h.label || h.key).join(delimiter) : keys.join(delimiter);
+  // 创建 CSV 头行
+  const headerRow = header.map(h => formatValue(h.label, quoteStrings, escapeSpecialChars, delimiter));
 
   // 处理每一行数据
   const rows = data.map(item => {
-    return keys
-      .map(key => {
-        let value = item[key];
+    return keys.map(key => {
+      let value = item[key];
 
-        if (formatters[key]) {
-          value = formatters[key](value, item);
-        }
+      if (formatters[key]) {
+        value = formatters[key](value, item);
+      }
 
-        // 处理特殊字符
-        if (value === null || value === undefined) {
-          return '';
-        } else if (typeof value === 'string') {
-          // 如果字符串包含分隔符、双引号或换行符，需要用双引号包裹
-          // 并且将字符串中的双引号替换为两个双引号
-          if (value.includes(delimiter) || value.includes('"') || value.includes('\n')) {
-            return `"${value.replace(/"/g, '""')}"`;
-          }
-          return value;
-        } else if (typeof value === 'object') {
-          // 对象和数组转为 JSON 字符串并用双引号包裹
-          return `"${JSON.stringify(value).replace(/"/g, '""')}"`;
-        }
-
-        return String(value);
-      })
-      .join(delimiter);
+      return formatValue(value, quoteStrings, escapeSpecialChars, delimiter);
+    });
   });
 
-  const csv = [headerRow, ...rows].join('\n');
+  // 将每行数据连接成 CSV 字符串
+  const csv = [headerRow.join(delimiter), ...rows.map(row => row.join(delimiter))].join(newLine);
 
   const csvContent = withBom ? '\uFEFF' + csv : csv;
 
   downloadCSV(csvContent, filename);
+}
+
+/**
+ * 格式化单个值为 CSV 兼容的字符串
+ */
+function formatValue(value: any, quoteStrings: boolean, escapeSpecialChars: boolean, delimiter: string): string {
+  if (value === null || value === undefined) {
+    return '';
+  }
+
+  if (typeof value === 'string') {
+    const needsQuotes =
+      quoteStrings ||
+      (escapeSpecialChars &&
+        (value.includes(delimiter) || value.includes('"') || value.includes('\n') || value.includes('\r')));
+
+    if (needsQuotes) {
+      return `"${value.replace(/"/g, '""')}"`;
+    }
+    return value;
+  }
+
+  if (typeof value === 'object') {
+    return `"${JSON.stringify(value).replace(/"/g, '""')}"`;
+  }
+
+  return String(value);
 }
 
 /**
