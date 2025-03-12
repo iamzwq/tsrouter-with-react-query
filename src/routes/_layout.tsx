@@ -16,9 +16,14 @@ function LayoutComponent() {
         className="sticky top-0 flex h-8 gap-4 border-b border-b-(--border-color) bg-(--bg-color) px-2"
         sx={{ zIndex: theme => theme.zIndex.appBar }}
       >
-        <Box className="flex items-center gap-0.5 select-none" component={Link} to="/">
+        <Box
+          className="my-1 flex items-center gap-0.5 rounded-lg px-1.5 select-none"
+          component={Link}
+          to="/"
+          sx={{ background: 'linear-gradient(to top right, #f472b6, #ef4444, #facc15)' }}
+        >
           <img src={LogoIconUrl} alt="logo-icon" className="size-4" />
-          <Typography textTransform="uppercase" fontWeight="bold" fontSize={24} color="primary">
+          <Typography textTransform="uppercase" fontWeight="bold" fontSize={24} color="white">
             tsrouter
           </Typography>
         </Box>
