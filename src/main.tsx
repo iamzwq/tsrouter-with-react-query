@@ -23,7 +23,7 @@ const queryClient = new QueryClient({
 
 const router = createRouter({
   routeTree,
-  basepath: import.meta.env.VITE_BASE_URL,
+  basepath: import.meta.env.VITE_GITHUB_PAGES_URL,
   context: { queryClient },
   defaultPendingComponent: FullscreenSpinner,
   defaultErrorComponent: ({ error }) => {

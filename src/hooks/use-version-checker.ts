@@ -7,7 +7,7 @@ export const useVersionChecker = () => {
   useEffect(() => {
     if (import.meta.env.PROD) {
       const fetchVersion = () => {
-        fetch(`${import.meta.env.VITE_BASE_URL}/version.json?t=${Date.now()}`)
+        fetch(`${import.meta.env.VITE_GITHUB_PAGES_URL}/version.json?t=${Date.now()}`)
           .then(res => res.json())
           .then(data => {
             const version = data?.version;
