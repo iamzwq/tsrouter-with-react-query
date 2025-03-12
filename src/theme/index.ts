@@ -1,7 +1,6 @@
 import { createTheme } from '@mui/material/styles';
-import { MuiButton } from './components/button/button';
-import { MuiIconButton } from './components/button/icon-button';
-import { MuiTextField } from './components/input/text-field';
+import { colorSchemes } from './color-schemes';
+import { components } from './components';
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -14,47 +13,7 @@ export const theme = createTheme({
     colorSchemeSelector: 'class',
     cssVarPrefix: '',
   },
-  colorSchemes: {
-    light: {
-      palette: {
-        primary: {
-          main: '#00A76F',
-          light: '#5BE49B',
-          dark: '#007867',
-        },
-        secondary: {
-          main: '#8E33FF',
-          light: '#5119B7',
-          dark: '#5119B7',
-        },
-        text: {
-          primary: '#1C252E',
-          secondary: '#637381',
-          disabled: '#919EAB',
-        },
-        background: {
-          default: '#fff',
-        },
-      },
-    },
-    dark: {
-      palette: {
-        primary: {
-          main: '#00A76F',
-          light: '#5BE49B',
-          dark: '#007867',
-        },
-        secondary: {
-          main: '#8E33FF',
-          light: '#5119B7',
-          dark: '#5119B7',
-        },
-        background: {
-          default: '#121212',
-        },
-      },
-    },
-  },
+  colorSchemes,
   typography: {
     fontWeightRegular: 400,
     fontWeightMedium: 500,
@@ -70,37 +29,5 @@ export const theme = createTheme({
       '2xl': 1536,
     },
   },
-  components: {
-    MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true,
-      },
-    },
-    MuiButton,
-    MuiIconButton,
-    MuiTextField,
-    MuiInputLabel: {
-      defaultProps: {
-        shrink: true,
-      },
-    },
-    MuiOutlinedInput: {
-      defaultProps: {
-        notched: true,
-      },
-    },
-    MuiTooltip: {
-      defaultProps: {
-        arrow: true,
-      },
-    },
-    MuiFormHelperText: {
-      styleOverrides: {
-        root: {
-          marginLeft: 0,
-          marginRight: 0,
-        },
-      },
-    },
-  },
+  components,
 });
