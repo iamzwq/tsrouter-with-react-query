@@ -1,6 +1,7 @@
-import { keepPreviousData, queryOptions } from '@tanstack/react-query';
+import { queryOptions } from '@tanstack/react-query';
 
 export const fetchPosts = async (pagination: Pagination) => {
+  // await new Promise(resolve => setTimeout(resolve, 2000));
   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
   const posts: Post[] = await res.json();
   // pagination
@@ -26,7 +27,6 @@ export const postsQueryOptions = (pagination: Pagination) =>
   queryOptions({
     queryKey: ['GET_POSTS', pagination],
     queryFn: () => fetchPosts(pagination),
-    placeholderData: keepPreviousData,
   });
 
 export const postQueryOptions = (postId: string) =>

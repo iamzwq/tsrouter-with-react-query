@@ -2,6 +2,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Button, Typography } from '@mui/material';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { LazyFallback } from '~/components/lazy-fallback';
 import { postQueryOptions, userQueryOptions } from '../-api';
 
 export const Route = createFileRoute('/_layout/posts/$id/')({
@@ -14,6 +15,7 @@ export const Route = createFileRoute('/_layout/posts/$id/')({
       meta: [{ title: `Post ${ctx.params.id}` }],
     };
   },
+  pendingComponent: LazyFallback,
 });
 
 function RouteComponent() {
@@ -22,7 +24,7 @@ function RouteComponent() {
   const { data: post } = useSuspenseQuery(postQueryOptions(id));
   const { data: user } = useQuery(userQueryOptions(post.userId));
   return (
-    <>
+    <Box>
       <Button onClick={() => navigate({ to: '/posts' })} variant="outlined" startIcon={<ArrowBackIcon />}>
         Go Back to posts
       </Button>
@@ -41,6 +43,6 @@ function RouteComponent() {
           </Typography>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }

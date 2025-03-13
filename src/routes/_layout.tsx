@@ -14,11 +14,15 @@ function LayoutComponent() {
   return (
     <>
       <Box
-        className="sticky top-0 flex h-8 gap-4 border-b border-b-(--border-color) bg-(--bg-color) px-2"
-        sx={{ zIndex: theme => theme.zIndex.appBar }}
+        className="sticky top-0 flex h-8 gap-3 border-b border-b-(--border-color) px-2"
+        sx={{
+          zIndex: theme => theme.zIndex.appBar,
+          background: 'rgba(var(--palette-background-defaultChannel), 0.8)',
+          backdropFilter: 'blur(6px)',
+        }}
       >
         <Box
-          className="my-1 flex items-center gap-0.5 rounded-lg px-1.5 select-none"
+          className="my-1 flex shrink-0 items-center gap-0.5 rounded-lg px-1.5 select-none"
           component={Link}
           to="/"
           sx={{ background: 'linear-gradient(to top right, #f472b6, #ef4444, #facc15)' }}
@@ -28,7 +32,7 @@ function LayoutComponent() {
             tsrouter
           </Typography>
         </Box>
-        <div className="flex items-center gap-2">
+        <div className="hidden items-center gap-2 sm:flex">
           <Link to="/" className="[&.active]:font-bold">
             Home
           </Link>
@@ -50,7 +54,7 @@ function LayoutComponent() {
           <AccountMenu />
         </div>
       </Box>
-      <main className="p-2">
+      <main className="flex grow flex-col p-2">
         <Outlet />
       </main>
     </>

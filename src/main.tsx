@@ -4,7 +4,6 @@ import NiceModal from '@ebay/nice-modal-react';
 import { ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createRouter, ErrorComponent, RouterProvider } from '@tanstack/react-router';
-import { FullscreenSpinner } from './components/fullscreen-spinner';
 import { NotFound } from './components/not-found';
 import { routeTree } from './routeTree.gen';
 import { theme } from './theme';
@@ -26,7 +25,6 @@ const router = createRouter({
   routeTree,
   basepath: import.meta.env.VITE_GITHUB_PAGES_URL,
   context: { queryClient },
-  defaultPendingComponent: FullscreenSpinner,
   defaultErrorComponent: ({ error }) => {
     return <ErrorComponent error={error} />;
   },
