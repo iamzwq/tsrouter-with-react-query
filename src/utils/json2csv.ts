@@ -12,7 +12,6 @@ interface Options {
   withBom?: boolean;
   delimiter?: string;
   filename?: string;
-  // 新增配置项
   quoteStrings?: boolean;
   escapeSpecialChars?: boolean;
   newLine?: string;
