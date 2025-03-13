@@ -2,6 +2,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { Box, IconButton, Typography } from '@mui/material';
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import { AccountMenu } from '~/layout/account-menu';
+import { NotificationsPopover } from '~/layout/notifications-popover';
 
 import LogoIconUrl from '/favicon.svg';
 
@@ -45,6 +46,7 @@ function LayoutComponent() {
           <IconButton className="animate-spin">
             <SettingsIcon />
           </IconButton>
+          <NotificationsPopover />
           <AccountMenu />
         </div>
       </Box>
