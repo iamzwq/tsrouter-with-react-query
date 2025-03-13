@@ -51,7 +51,7 @@ export function LoginForm() {
           }}
         />
 
-        <Button type="submit" size="large" variant="contained" color="primary">
+        <Button type="submit" size="large" variant="contained">
           Submit
         </Button>
       </Box>
