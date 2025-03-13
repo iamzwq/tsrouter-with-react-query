@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as NotFoundImport } from './routes/not-found'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index/route'
 import { Route as LayoutPostsIndexImport } from './routes/_layout/posts/index'
@@ -20,6 +21,12 @@ import { Route as authLoginIndexImport } from './routes/(auth)/login/index'
 import { Route as LayoutPostsIdIndexImport } from './routes/_layout/posts/$id/index'
 
 // Create/Update Routes
+
+const NotFoundRoute = NotFoundImport.update({
+  id: '/not-found',
+  path: '/not-found',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
@@ -71,6 +78,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof LayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/not-found': {
+      id: '/not-found'
+      path: '/not-found'
+      fullPath: '/not-found'
+      preLoaderRoute: typeof NotFoundImport
       parentRoute: typeof rootRoute
     }
     '/_layout/': {
@@ -141,6 +155,7 @@ const LayoutRouteWithChildren =
 
 export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
+  '/not-found': typeof NotFoundRoute
   '/': typeof LayoutIndexRouteRoute
   '/login': typeof authLoginIndexRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
@@ -150,6 +165,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  '/not-found': typeof NotFoundRoute
   '/': typeof LayoutIndexRouteRoute
   '/login': typeof authLoginIndexRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
@@ -161,6 +177,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_layout': typeof LayoutRouteWithChildren
+  '/not-found': typeof NotFoundRoute
   '/_layout/': typeof LayoutIndexRouteRoute
   '/(auth)/login/': typeof authLoginIndexRoute
   '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
@@ -173,6 +190,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
+    | '/not-found'
     | '/'
     | '/login'
     | '/dashboard'
@@ -180,10 +198,18 @@ export interface FileRouteTypes {
     | '/posts'
     | '/posts/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard' | '/echarts' | '/posts' | '/posts/$id'
+  to:
+    | '/not-found'
+    | '/'
+    | '/login'
+    | '/dashboard'
+    | '/echarts'
+    | '/posts'
+    | '/posts/$id'
   id:
     | '__root__'
     | '/_layout'
+    | '/not-found'
     | '/_layout/'
     | '/(auth)/login/'
     | '/_layout/dashboard/'
@@ -195,11 +221,13 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
+  NotFoundRoute: typeof NotFoundRoute
   authLoginIndexRoute: typeof authLoginIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
+  NotFoundRoute: NotFoundRoute,
   authLoginIndexRoute: authLoginIndexRoute,
 }
 
@@ -214,6 +242,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_layout",
+        "/not-found",
         "/(auth)/login/"
       ]
     },
@@ -226,6 +255,9 @@ export const routeTree = rootRoute
         "/_layout/posts/",
         "/_layout/posts/$id/"
       ]
+    },
+    "/not-found": {
+      "filePath": "not-found.tsx"
     },
     "/_layout/": {
       "filePath": "_layout/index/route.tsx",
