@@ -12,15 +12,30 @@
     &.Toastify__toast-theme--colored {
       &.Toastify__toast--success {
         color: var(--palette-success-main);
+        .Toastify__progress-bar {
+          background: var(--palette-success-main);
+        }
       }
       &.Toastify__toast--error {
         color: var(--palette-error-main);
+        .Toastify__progress-bar {
+          background: var(--palette-error-main);
+        }
       }
       &.Toastify__toast--warning {
         color: var(--palette-warning-main);
+        .Toastify__progress-bar {
+          background: var(--palette-warning-main);
+        }
       }
       &.Toastify__toast--info {
         color: var(--palette-info-main);
+        .Toastify__progress-bar {
+          background: var(--palette-info-main);
+        }
+      }
+      .Toastify__close-button {
+        color: inherit;
       }
     }
   }
