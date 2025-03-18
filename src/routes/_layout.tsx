@@ -3,6 +3,7 @@ import { Box, IconButton, Typography } from '@mui/material';
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import { AccountMenu } from '~/layout/account-menu';
 import { NotificationsPopover } from '~/layout/notifications-popover';
+import { ThemePopover } from '~/layout/theme-popover';
 
 import LogoIconUrl from '/favicon.svg';
 
@@ -36,17 +37,18 @@ function LayoutComponent() {
           <Link to="/" className="[&.active]:font-bold">
             Home
           </Link>
-          <Link to="/dashboard" className="[&.active]:font-bold">
-            Dashboard
-          </Link>
           <Link to="/posts" activeProps={{ className: 'font-bold text-(--primary-color)' }}>
             Posts
           </Link>
           <Link to="/echarts" activeProps={{ className: 'font-bold text-(--primary-color)' }}>
             Echarts
           </Link>
+          <Link to="/vchart" activeProps={{ className: 'font-bold text-(--primary-color)' }}>
+            VChart
+          </Link>
         </div>
-        <div className="ml-auto flex items-center">
+        <div className="ml-auto flex items-center gap-x-1">
+          <ThemePopover />
           <IconButton className="animate-spin">
             <SettingsIcon />
           </IconButton>
