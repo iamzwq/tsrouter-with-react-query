@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { debounce } from '@mui/material';
-import type { EChartsInitOpts, EChartsOption, SetOptionOpts } from 'echarts';
-import { BarChart } from 'echarts/charts';
+import type { EChartsInitOpts, EChartsOption } from 'echarts';
+import { BarChart, PieChart } from 'echarts/charts';
 import {
   DatasetComponent,
   GridComponent,
+  LegendComponent,
   TitleComponent,
   TooltipComponent,
   TransformComponent,
@@ -13,13 +14,15 @@ import * as echarts from 'echarts/core';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import darkTheme from '~/assets/echarts-theme/dark.json';
-import { useMemoizedFn } from './use-memoized-fn';
+import lightTheme from '~/assets/echarts-theme/light.json';
 
 echarts.use([
   TitleComponent,
   TooltipComponent,
+  LegendComponent,
   GridComponent,
   BarChart,
+  PieChart,
   CanvasRenderer,
   DatasetComponent,
   LabelLayout,
@@ -28,59 +31,95 @@ echarts.use([
 ]);
 
 echarts.registerTheme('dark', darkTheme);
+echarts.registerTheme('light', lightTheme);
 
 interface UseEChartsProps {
   options: EChartsOption; // 图表配置项
-  loading?: boolean; // 是否显示加载状态
   theme?: string | object; // 主题，可选
   onChartReady?: (chart: echarts.ECharts) => void; // 图表初始化完成回调
-  setOptionOpts?: SetOptionOpts; // setOption 的可选配置
   opts?: EChartsInitOpts;
+  autoResize?: boolean; // 是否自动调整大小
+  notMerge?: boolean; // 是否不合并数据
+  lazyUpdate?: boolean; // 是否延迟更新
 }
 
-export const useECharts = ({ options, theme, opts, onChartReady, setOptionOpts, loading }: UseEChartsProps) => {
-  const chartRef = useRef<HTMLDivElement | null>(null);
-  const [chartInstance, setChartInstance] = useState<echarts.ECharts | null>(null);
+export const useECharts = ({
+  options,
+  theme = 'light',
+  opts,
+  onChartReady,
+  autoResize = true,
+  notMerge = false,
+  lazyUpdate = false,
+}: UseEChartsProps) => {
+  const chartInstanceRef = useRef<echarts.ECharts | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const onChartReadyMemoized = useMemoizedFn((chart: echarts.ECharts) => {
-    if (onChartReady) {
-      onChartReady(chart);
+  const onChartReadyRef = useRef(onChartReady);
+  onChartReadyRef.current = onChartReady;
+
+  // 初始化图表
+  const initChart = useCallback(() => {
+    if (containerRef.current) {
+      chartInstanceRef.current = echarts.init(containerRef.current, theme, opts);
+      // chartInstanceRef.current.setOption(options, notMerge, lazyUpdate);
+
+      if (onChartReadyRef.current) {
+        onChartReadyRef.current(chartInstanceRef.current);
+      }
     }
-  });
+  }, [theme, opts]);
 
+  // DOM ref callback
+  const chartRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (node !== null) {
+        containerRef.current = node;
+        initChart();
+      }
+    },
+    [initChart]
+  );
+
+  // 监听 options 变化自动更新
   useEffect(() => {
-    if (!chartRef.current) return;
+    if (chartInstanceRef.current) {
+      chartInstanceRef.current.setOption(options, notMerge, lazyUpdate);
+    }
+  }, [options, notMerge, lazyUpdate]);
 
-    const chart = echarts.init(chartRef.current, theme, opts);
-    setChartInstance(chart);
-    chart.setOption(options, setOptionOpts);
+  // 自动调整大小
+  useEffect(() => {
+    if (!autoResize) return;
 
-    onChartReadyMemoized(chart);
+    const resize = debounce(() => {
+      chartInstanceRef.current?.resize();
+    });
 
-    const resizeObserver = new ResizeObserver(
-      debounce(() => {
-        chart.resize();
-      })
-    );
-
-    resizeObserver.observe(chartRef.current);
-
+    window.addEventListener('resize', resize);
     return () => {
-      resizeObserver.disconnect();
-      chart.dispose();
-      setChartInstance(null);
+      window.removeEventListener('resize', resize);
+      resize.clear();
     };
-  }, [chartRef, options, theme, opts, setOptionOpts, onChartReadyMemoized]);
+  }, [autoResize]);
 
+  // 清理函数
   useEffect(() => {
-    if (!chartInstance) return;
+    return () => {
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.dispose();
+        chartInstanceRef.current = null;
+      }
+    };
+  }, []);
 
-    if (loading) {
-      chartInstance.showLoading();
-    } else {
-      chartInstance.hideLoading();
-    }
-  }, [chartInstance, loading]);
+  return chartRef;
 
-  return { chartRef, chartInstance };
+  // return {
+  //   chartRef,
+  //   getChart: useCallback(() => chartInstanceRef.current, []),
+  //   setOption: useCallback((option: EChartsOption, notMerge?: boolean, lazyUpdate?: boolean) => {
+  //     chartInstanceRef.current?.setOption(option, notMerge, lazyUpdate);
+  //   }, []),
+  // };
 };

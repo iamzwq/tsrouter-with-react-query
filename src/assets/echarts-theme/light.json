@@ -1,0 +1,39 @@
+{
+  "backgroundColor": "",
+  "textStyle": {},
+  "categoryAxis": {
+    "axisLine": {
+      "show": true
+    },
+    "axisTick": {
+      "show": true,
+      "alignWithLabel": true
+    },
+    "axisLabel": {
+      "show": true
+    },
+    "splitLine": {
+      "show": true
+    },
+    "splitArea": {
+      "show": false
+    }
+  },
+  "valueAxis": {
+    "axisLine": {
+      "show": true
+    },
+    "axisTick": {
+      "show": true
+    },
+    "axisLabel": {
+      "show": true
+    },
+    "splitLine": {
+      "show": true
+    },
+    "splitArea": {
+      "show": false
+    }
+  }
+}

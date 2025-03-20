@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Box, Button, Grid2 } from '@mui/material';
+import { useEffect, useMemo, useState } from 'react';
+import { Box, Grid2, useColorScheme } from '@mui/material';
 import { createFileRoute } from '@tanstack/react-router';
 import type { EChartsOption } from 'echarts';
 import * as echarts from 'echarts/core';
@@ -10,7 +10,16 @@ export const Route = createFileRoute('/_layout/echarts/')({
 });
 
 function EChartsComponent() {
-  const [loading, setLoading] = useState(false);
+  const { systemMode, mode } = useColorScheme();
+  const themeMode = systemMode ?? mode;
+
+  const [pieData, setPieData] = useState([
+    { value: 1048, name: 'Search Engine' },
+    { value: 735, name: 'Direct' },
+    { value: 580, name: 'Email' },
+    { value: 484, name: 'Union Ads' },
+    { value: 300, name: 'Video Ads' },
+  ]);
 
   const options = useMemo<EChartsOption>(() => {
     return {
@@ -24,10 +33,11 @@ function EChartsComponent() {
         type: 'value',
       },
       tooltip: {
-        trigger: 'axis',
+        trigger: 'item',
       },
       series: [
         {
+          name: 'Sales',
           type: 'bar',
           barWidth: 30,
           encode: {
@@ -40,6 +50,12 @@ function EChartsComponent() {
               { offset: 0, color: '#713600' },
               { offset: 1, color: '#FFCA99' },
             ]),
+          },
+          label: {
+            show: true,
+            position: 'top',
+            color: '#713600',
+            fontWeight: 'bold',
           },
         },
       ],
@@ -56,26 +72,84 @@ function EChartsComponent() {
     };
   }, []);
 
-  const { chartRef } = useECharts({
+  const barChartRef = useECharts({
     options,
-    // theme: customTheme,
-    theme: 'dark',
+    theme: themeMode,
     onChartReady: chart => {
       // 图表初始化完成后的回调
       chart.on('click', params => {
         console.log('click', params);
       });
     },
-    loading: loading,
   });
+
+  const pieOptions = useMemo<EChartsOption>(() => {
+    return {
+      tooltip: {
+        trigger: 'item',
+      },
+      series: [
+        {
+          name: 'Access From',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          padAngle: 1,
+          itemStyle: {
+            borderRadius: 10,
+          },
+          label: {
+            show: true,
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 18,
+              fontWeight: 'bold',
+            },
+          },
+          labelLine: {
+            show: true,
+          },
+          data: pieData,
+        },
+      ],
+    };
+  }, [pieData]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPieData([
+        { value: Math.random() * 1000, name: 'Search Engine' },
+        { value: Math.random() * 1000, name: 'Direct' },
+        { value: Math.random() * 1000, name: 'Email' },
+        { value: Math.random() * 1000, name: 'Union Ads' },
+        { value: Math.random() * 1000, name: 'Video Ads' },
+      ]);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const pieChartRef = useECharts({
+    options: pieOptions,
+    theme: themeMode,
+    onChartReady: chart => {
+      console.log('chart ready', chart);
+      chart.on('click', params => {
+        console.log('click', params);
+      });
+    },
+  });
+
   return (
     <Grid2 container>
       <Grid2 size={{ xs: 12, md: 6 }}>
-        <Box ref={chartRef} sx={{ height: 400 }} />
+        <Box ref={barChartRef} sx={{ height: 400 }} />
       </Grid2>
       <Grid2 size={{ xs: 12, md: 6 }}>
-        <Button onClick={() => setLoading(!loading)}>Loading</Button>
+        <Box ref={pieChartRef} sx={{ height: 400 }} />
       </Grid2>
+      <Grid2 size={{ xs: 12, md: 6 }}></Grid2>
     </Grid2>
   );
 }
