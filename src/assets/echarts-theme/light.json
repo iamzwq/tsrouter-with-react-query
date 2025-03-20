@@ -1,6 +1,25 @@
 {
-  "backgroundColor": "",
+  "color": [
+    "#1664FF",
+    "#1AC6FF",
+    "#FF8A00",
+    "#3CC780",
+    "#7442D4",
+    "#FFC400",
+    "#304D77",
+    "#B48DEB",
+    "#009488",
+    "#FF7DDA"
+  ],
+  "backgroundColor": "#ffffff",
   "textStyle": {},
+  "grid": {
+    "top": 15,
+    "right": 0,
+    "bottom": 0,
+    "left": 0,
+    "containLabel": true
+  },
   "categoryAxis": {
     "axisLine": {
       "show": true
@@ -13,10 +32,13 @@
       "show": true
     },
     "splitLine": {
-      "show": true
+      "show": false
     },
     "splitArea": {
       "show": false
+    },
+    "axisPointer": {
+      "type": "shadow"
     }
   },
   "valueAxis": {

@@ -24,16 +24,21 @@ function EChartsComponent() {
   const options = useMemo<EChartsOption>(() => {
     return {
       title: {
-        text: 'ECharts',
+        text: 'Echarts Bar Chart',
+      },
+      grid: {
+        top: 40,
       },
       xAxis: {
         type: 'category',
       },
       yAxis: {
-        type: 'value',
+        name: '超长名称示例_超长名称示例',
+        nameLocation: 'middle',
+        nameGap: 40,
       },
       tooltip: {
-        trigger: 'item',
+        trigger: 'axis',
       },
       series: [
         {
@@ -58,15 +63,27 @@ function EChartsComponent() {
             fontWeight: 'bold',
           },
         },
+        {
+          name: 'Profit',
+          type: 'bar',
+          barWidth: 30,
+          encode: {
+            x: 'year',
+            y: 'profit',
+          },
+          itemStyle: {
+            borderRadius: [15, 15, 0, 0],
+          },
+        },
       ],
       dataset: {
         source: [
-          { year: '2015', sales: 15423 },
-          { year: '2016', sales: 23534 },
-          { year: '2017', sales: 18483 },
-          { year: '2018', sales: 34523 },
-          { year: '2019', sales: 32489 },
-          { year: '2020', sales: 28782 },
+          { year: '2015', sales: 15423, profit: 10000 },
+          { year: '2016', sales: 23534, profit: 12000 },
+          { year: '2017', sales: 18483, profit: 15000 },
+          { year: '2018', sales: 34523, profit: 20000 },
+          { year: '2019', sales: 32489, profit: 25000 },
+          { year: '2020', sales: 28782, profit: 11000 },
         ],
       },
     };

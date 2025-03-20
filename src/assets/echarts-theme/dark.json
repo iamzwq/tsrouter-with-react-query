@@ -1,19 +1,25 @@
 {
   "color": [
-    "#dd6b66",
-    "#759aa0",
-    "#e69d87",
-    "#8dc1a9",
-    "#ea7e53",
-    "#eedd78",
-    "#73a373",
-    "#73b9bc",
-    "#7289ab",
-    "#91ca8c",
-    "#f49f42"
+    "#1664FF",
+    "#1AC6FF",
+    "#FF8A00",
+    "#3CC780",
+    "#7442D4",
+    "#FFC400",
+    "#304D77",
+    "#B48DEB",
+    "#009488",
+    "#FF7DDA"
   ],
-  "backgroundColor": "rgba(51,51,51,1)",
+  "backgroundColor": "#121212",
   "textStyle": {},
+  "grid": {
+    "top": 15,
+    "right": 0,
+    "bottom": 0,
+    "left": 0,
+    "containLabel": true
+  },
   "title": {
     "textStyle": {
       "color": "#eeeeee"
@@ -79,10 +85,10 @@
       }
     },
     "splitArea": {
-      "show": false,
-      "areaStyle": {
-        "color": ["#eeeeee"]
-      }
+      "show": false
+    },
+    "axisPointer": {
+      "type": "shadow"
     }
   },
   "valueAxis": {
