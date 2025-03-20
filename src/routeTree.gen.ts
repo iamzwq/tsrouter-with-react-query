@@ -14,9 +14,9 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as NotFoundImport } from './routes/not-found'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index/route'
+import { Route as LayoutVchartIndexImport } from './routes/_layout/vchart/index'
 import { Route as LayoutPostsIndexImport } from './routes/_layout/posts/index'
 import { Route as LayoutEchartsIndexImport } from './routes/_layout/echarts/index'
-import { Route as LayoutDashboardIndexImport } from './routes/_layout/dashboard/index'
 import { Route as authLoginIndexImport } from './routes/(auth)/login/index'
 import { Route as LayoutPostsIdIndexImport } from './routes/_layout/posts/$id/index'
 
@@ -39,6 +39,12 @@ const LayoutIndexRouteRoute = LayoutIndexRouteImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutVchartIndexRoute = LayoutVchartIndexImport.update({
+  id: '/vchart/',
+  path: '/vchart/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 const LayoutPostsIndexRoute = LayoutPostsIndexImport.update({
   id: '/posts/',
   path: '/posts/',
@@ -48,12 +54,6 @@ const LayoutPostsIndexRoute = LayoutPostsIndexImport.update({
 const LayoutEchartsIndexRoute = LayoutEchartsIndexImport.update({
   id: '/echarts/',
   path: '/echarts/',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutDashboardIndexRoute = LayoutDashboardIndexImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -101,13 +101,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLoginIndexImport
       parentRoute: typeof rootRoute
     }
-    '/_layout/dashboard/': {
-      id: '/_layout/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof LayoutDashboardIndexImport
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/echarts/': {
       id: '/_layout/echarts/'
       path: '/echarts'
@@ -120,6 +113,13 @@ declare module '@tanstack/react-router' {
       path: '/posts'
       fullPath: '/posts'
       preLoaderRoute: typeof LayoutPostsIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/vchart/': {
+      id: '/_layout/vchart/'
+      path: '/vchart'
+      fullPath: '/vchart'
+      preLoaderRoute: typeof LayoutVchartIndexImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/posts/$id/': {
@@ -136,17 +136,17 @@ declare module '@tanstack/react-router' {
 
 interface LayoutRouteChildren {
   LayoutIndexRouteRoute: typeof LayoutIndexRouteRoute
-  LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
   LayoutEchartsIndexRoute: typeof LayoutEchartsIndexRoute
   LayoutPostsIndexRoute: typeof LayoutPostsIndexRoute
+  LayoutVchartIndexRoute: typeof LayoutVchartIndexRoute
   LayoutPostsIdIndexRoute: typeof LayoutPostsIdIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutIndexRouteRoute: LayoutIndexRouteRoute,
-  LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
   LayoutEchartsIndexRoute: LayoutEchartsIndexRoute,
   LayoutPostsIndexRoute: LayoutPostsIndexRoute,
+  LayoutVchartIndexRoute: LayoutVchartIndexRoute,
   LayoutPostsIdIndexRoute: LayoutPostsIdIndexRoute,
 }
 
@@ -158,9 +158,9 @@ export interface FileRoutesByFullPath {
   '/not-found': typeof NotFoundRoute
   '/': typeof LayoutIndexRouteRoute
   '/login': typeof authLoginIndexRoute
-  '/dashboard': typeof LayoutDashboardIndexRoute
   '/echarts': typeof LayoutEchartsIndexRoute
   '/posts': typeof LayoutPostsIndexRoute
+  '/vchart': typeof LayoutVchartIndexRoute
   '/posts/$id': typeof LayoutPostsIdIndexRoute
 }
 
@@ -168,9 +168,9 @@ export interface FileRoutesByTo {
   '/not-found': typeof NotFoundRoute
   '/': typeof LayoutIndexRouteRoute
   '/login': typeof authLoginIndexRoute
-  '/dashboard': typeof LayoutDashboardIndexRoute
   '/echarts': typeof LayoutEchartsIndexRoute
   '/posts': typeof LayoutPostsIndexRoute
+  '/vchart': typeof LayoutVchartIndexRoute
   '/posts/$id': typeof LayoutPostsIdIndexRoute
 }
 
@@ -180,9 +180,9 @@ export interface FileRoutesById {
   '/not-found': typeof NotFoundRoute
   '/_layout/': typeof LayoutIndexRouteRoute
   '/(auth)/login/': typeof authLoginIndexRoute
-  '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
   '/_layout/echarts/': typeof LayoutEchartsIndexRoute
   '/_layout/posts/': typeof LayoutPostsIndexRoute
+  '/_layout/vchart/': typeof LayoutVchartIndexRoute
   '/_layout/posts/$id/': typeof LayoutPostsIdIndexRoute
 }
 
@@ -193,18 +193,18 @@ export interface FileRouteTypes {
     | '/not-found'
     | '/'
     | '/login'
-    | '/dashboard'
     | '/echarts'
     | '/posts'
+    | '/vchart'
     | '/posts/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/not-found'
     | '/'
     | '/login'
-    | '/dashboard'
     | '/echarts'
     | '/posts'
+    | '/vchart'
     | '/posts/$id'
   id:
     | '__root__'
@@ -212,9 +212,9 @@ export interface FileRouteTypes {
     | '/not-found'
     | '/_layout/'
     | '/(auth)/login/'
-    | '/_layout/dashboard/'
     | '/_layout/echarts/'
     | '/_layout/posts/'
+    | '/_layout/vchart/'
     | '/_layout/posts/$id/'
   fileRoutesById: FileRoutesById
 }
@@ -250,9 +250,9 @@ export const routeTree = rootRoute
       "filePath": "_layout.tsx",
       "children": [
         "/_layout/",
-        "/_layout/dashboard/",
         "/_layout/echarts/",
         "/_layout/posts/",
+        "/_layout/vchart/",
         "/_layout/posts/$id/"
       ]
     },
@@ -266,16 +266,16 @@ export const routeTree = rootRoute
     "/(auth)/login/": {
       "filePath": "(auth)/login/index.tsx"
     },
-    "/_layout/dashboard/": {
-      "filePath": "_layout/dashboard/index.tsx",
-      "parent": "/_layout"
-    },
     "/_layout/echarts/": {
       "filePath": "_layout/echarts/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/posts/": {
       "filePath": "_layout/posts/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/vchart/": {
+      "filePath": "_layout/vchart/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/posts/$id/": {
