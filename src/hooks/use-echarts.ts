@@ -56,7 +56,9 @@ export const useECharts = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const onChartReadyRef = useRef(onChartReady);
-  onChartReadyRef.current = onChartReady;
+  useEffect(() => {
+    onChartReadyRef.current = onChartReady;
+  }, [onChartReady]);
 
   // 初始化图表
   const initChart = useCallback(() => {
