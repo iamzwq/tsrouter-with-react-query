@@ -4,3 +4,4 @@ package-lock.json
 /dist/
 /.husky/
 /public/
+routeTree.gen.ts
