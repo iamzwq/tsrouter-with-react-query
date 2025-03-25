@@ -24,6 +24,7 @@
     "@tanstack/react-router": "^1.114.25",
     "@visactor/react-vchart": "^1.13.7",
     "echarts": "^5.6.0",
+    "motion": "^12.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
