@@ -2,10 +2,10 @@ import { toast } from 'react-toastify';
 import { Button, Stack } from '@mui/material';
 import { createFileRoute } from '@tanstack/react-router';
 import { motion } from 'motion/react';
-import { FlipCard } from './-components/flip-card';
-import { OpenFormModalButton } from './-components/form-modal';
-import { ScrollAnimation } from './-components/scroll-animation';
-import { OpenModalButton } from './-components/test-modal';
+import { FlipCard } from './components/flip-card';
+import { OpenFormModalButton } from './components/form-modal';
+import { ScrollAnimation } from './components/scroll-animation';
+import { OpenModalButton } from './components/test-modal';
 
 export const Route = createFileRoute('/_layout/')({
   component: RouteComponent,
@@ -66,7 +66,9 @@ function RouteComponent() {
         </Stack>
         <FlipCard />
       </Stack>
-      <div className="flex h-screen items-center justify-center">hehe</div>
+      <div className="flex h-screen items-center justify-center">
+        <div className="size-20 bg-(--primary-color)"></div>
+      </div>
       <ScrollAnimation />
     </>
   );

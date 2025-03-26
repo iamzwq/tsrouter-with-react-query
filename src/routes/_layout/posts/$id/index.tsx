@@ -3,7 +3,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { LazyFallback } from '~/components/lazy-fallback';
-import { postQueryOptions, userQueryOptions } from '../-api';
+import { postQueryOptions, userQueryOptions } from '../apis';
 
 export const Route = createFileRoute('/_layout/posts/$id/')({
   component: RouteComponent,

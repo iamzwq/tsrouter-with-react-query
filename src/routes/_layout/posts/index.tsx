@@ -4,7 +4,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { LazyFallback } from '~/components/lazy-fallback';
-import { postsQueryOptions } from './-api';
+import { postsQueryOptions } from './apis';
 
 export const Route = createFileRoute('/_layout/posts/')({
   component: Posts,

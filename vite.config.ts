@@ -12,7 +12,11 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       tailwindcss(),
-      TanStackRouterVite({ autoCodeSplitting: true }),
+      TanStackRouterVite({
+        autoCodeSplitting: true,
+        semicolons: true,
+        routeFileIgnorePattern: 'constants|components|hooks|utils|types|apis|services|stores',
+      }),
       {
         name: 'version-generator',
         apply: 'build',
