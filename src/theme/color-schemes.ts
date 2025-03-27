@@ -1,8 +1,6 @@
-import type {
-  ColorSystemOptions,
-  DefaultColorScheme,
-  ExtendedColorScheme,
-} from '@mui/material/styles/createThemeWithVars';
+import type { ColorSystemOptions } from '@mui/material/styles';
+
+type DefaultColorScheme = 'light' | 'dark';
 
 export const colorSchemes = {
   light: {
@@ -72,5 +70,4 @@ export const colorSchemes = {
       },
     },
   },
-} satisfies Partial<Record<DefaultColorScheme, boolean | ColorSystemOptions>> &
-  (ExtendedColorScheme extends string ? Record<ExtendedColorScheme, ColorSystemOptions> : object);
+} satisfies Partial<Record<DefaultColorScheme, boolean | ColorSystemOptions>>;
