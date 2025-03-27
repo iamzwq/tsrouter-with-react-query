@@ -63,14 +63,15 @@ export const useECharts = ({
   // 初始化图表
   const initChart = useCallback(() => {
     if (containerRef.current) {
+      chartInstanceRef.current?.dispose();
       chartInstanceRef.current = echarts.init(containerRef.current, theme, opts);
-      // chartInstanceRef.current.setOption(options, notMerge, lazyUpdate);
+      chartInstanceRef.current.setOption(options);
 
       if (onChartReadyRef.current) {
         onChartReadyRef.current(chartInstanceRef.current);
       }
     }
-  }, [theme, opts]);
+  }, [theme, opts]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // DOM ref callback
   const chartRef = useCallback(

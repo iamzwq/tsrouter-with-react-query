@@ -1,4 +1,4 @@
-import { Grid2 } from '@mui/material';
+import { Grid } from '@mui/material';
 import { createFileRoute } from '@tanstack/react-router';
 import { LazyFallback } from '~/components/lazy-fallback';
 import { AreaChartDemo } from './components/area-chart';
@@ -13,19 +13,19 @@ export const Route = createFileRoute('/_layout/vchart/')({
 
 function RouteComponent() {
   return (
-    <Grid2 container>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+    <Grid container>
+      <Grid size={{ xs: 12, md: 6 }}>
         <BarChartDemo />
-      </Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
         <LineChartDemo />
-      </Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
         <PieChartDemo />
-      </Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
         <AreaChartDemo />
-      </Grid2>
-    </Grid2>
+      </Grid>
+    </Grid>
   );
 }

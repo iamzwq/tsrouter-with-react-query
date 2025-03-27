@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Box, Grid2, useColorScheme } from '@mui/material';
+import { Box, Grid, useColorScheme } from '@mui/material';
 import { createFileRoute } from '@tanstack/react-router';
 import type { EChartsOption } from 'echarts';
-import * as echarts from 'echarts/core';
 import { useECharts } from '~/hooks';
 
 export const Route = createFileRoute('/_layout/echarts/')({
@@ -11,7 +10,7 @@ export const Route = createFileRoute('/_layout/echarts/')({
 
 function EChartsComponent() {
   const { systemMode, mode } = useColorScheme();
-  const themeMode = systemMode ?? mode;
+  const theme = systemMode ?? mode;
 
   const [pieData, setPieData] = useState([
     { value: 1048, name: 'Search Engine' },
@@ -49,13 +48,13 @@ function EChartsComponent() {
             x: 'year',
             y: 'sales',
           },
-          itemStyle: {
-            borderRadius: [15, 15, 0, 0],
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: '#713600' },
-              { offset: 1, color: '#FFCA99' },
-            ]),
-          },
+          // itemStyle: {
+          //   borderRadius: [15, 15, 0, 0],
+          //   color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          //     { offset: 0, color: '#713600' },
+          //     { offset: 1, color: '#FFCA99' },
+          //   ]),
+          // },
           label: {
             show: true,
             position: 'top',
@@ -70,9 +69,6 @@ function EChartsComponent() {
           encode: {
             x: 'year',
             y: 'profit',
-          },
-          itemStyle: {
-            borderRadius: [15, 15, 0, 0],
           },
         },
       ],
@@ -91,7 +87,7 @@ function EChartsComponent() {
 
   const barChartRef = useECharts({
     options,
-    theme: themeMode,
+    theme,
     onChartReady: chart => {
       // 图表初始化完成后的回调
       chart.on('click', params => {
@@ -149,7 +145,7 @@ function EChartsComponent() {
 
   const pieChartRef = useECharts({
     options: pieOptions,
-    theme: themeMode,
+    theme,
     onChartReady: chart => {
       console.log('chart ready', chart);
       chart.on('click', params => {
@@ -159,14 +155,14 @@ function EChartsComponent() {
   });
 
   return (
-    <Grid2 container>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+    <Grid container>
+      <Grid size={{ xs: 12, md: 6 }}>
         <Box ref={barChartRef} sx={{ height: 400 }} />
-      </Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }}>
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
         <Box ref={pieChartRef} sx={{ height: 400 }} />
-      </Grid2>
-      <Grid2 size={{ xs: 12, md: 6 }}></Grid2>
-    </Grid2>
+      </Grid>
+      <Grid size={{ xs: 12, md: 6 }}></Grid>
+    </Grid>
   );
 }

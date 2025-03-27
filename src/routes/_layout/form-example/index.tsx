@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { Button, Grid2 } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import { createFileRoute } from '@tanstack/react-router';
 import { ControlledAutocomplete } from '~/components/ds-controlled-form/controlled-autocomplete';
 import { ControlledSelect } from '~/components/ds-controlled-form/controlled-select';
@@ -30,8 +30,8 @@ function RouteComponent() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <Grid2 container spacing={2}>
-          <Grid2 size={{ xs: 12, md: 4, lg: 2 }}>
+        <Grid container spacing={2}>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}>
             <ControlledAutocomplete
               label="Country"
               name="country"
@@ -40,16 +40,13 @@ function RouteComponent() {
               getOptionLabel={option => (option as Option).label}
               isOptionEqualToValue={(option, value) => option.value === value.value}
             />
-          </Grid2>
-          <Grid2 size={{ xs: 12, md: 4, lg: 2 }}>
+          </Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}>
             <ControlledAutocomplete
               name="cities"
               control={methods.control} // 也可以显式传递 control
-              rules={{
-                required: 'At least one city is required',
-                // validate: (value: Option[]) => value.length <= 0 || 'At least one city is required',
-              }}
-              shouldUnregister={true}
+              rules={{ required: 'At least one city is required' }}
+              // shouldUnregister={true}
               multiple
               label="Cities"
               options={cities}
@@ -60,16 +57,16 @@ function RouteComponent() {
                 placeholder: 'Select cities...',
               }}
             />
-          </Grid2>
-          <Grid2 size={{ xs: 12, md: 4, lg: 2 }}>
+          </Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}>
             <ControlledTextField
               name="username"
               label="Username"
               rules={{ required: 'Username is required' }}
               fullWidth
             />
-          </Grid2>
-          <Grid2 size={{ xs: 12, md: 4, lg: 2 }}>
+          </Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}>
             <ControlledTextField
               name="email"
               label="Email"
@@ -82,8 +79,8 @@ function RouteComponent() {
               }}
               fullWidth
             />
-          </Grid2>
-          <Grid2 size={{ xs: 12, md: 4, lg: 2 }}>
+          </Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}>
             <ControlledTextField
               name="age"
               label="Age"
@@ -94,8 +91,8 @@ function RouteComponent() {
               }}
               fullWidth
             />
-          </Grid2>
-          <Grid2 size={{ xs: 12, md: 4, lg: 2 }}>
+          </Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}>
             <ControlledSelect
               name="gender"
               label="Gender"
@@ -108,8 +105,8 @@ function RouteComponent() {
               size="small"
               fullWidth
             />
-          </Grid2>
-          <Grid2 size={{ xs: 12, md: 4, lg: 2 }}>
+          </Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}>
             <ControlledSelect
               multiple
               name="interests"
@@ -124,11 +121,11 @@ function RouteComponent() {
               size="small"
               fullWidth
             />
-          </Grid2>
-          <Grid2 size={{ xs: 12, md: 4, lg: 2 }}></Grid2>
-          <Grid2 size={{ xs: 12, md: 4, lg: 2 }}></Grid2>
-          <Grid2 size={{ xs: 12, md: 4, lg: 2 }}></Grid2>
-        </Grid2>
+          </Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}></Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}></Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}></Grid>
+        </Grid>
         <Button type="submit" variant="contained">
           Submit
         </Button>
