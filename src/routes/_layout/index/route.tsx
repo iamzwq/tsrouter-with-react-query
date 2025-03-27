@@ -40,8 +40,8 @@ function RouteComponent() {
           viewport={{ once: true }}
           className="text-center"
         >
-          {Array.from(TEXT).map(item => (
-            <motion.span variants={itemVariants} key={item} className="inline-block text-[30px]">
+          {Array.from(TEXT).map((item, index) => (
+            <motion.span variants={itemVariants} key={index} className="inline-block text-[30px]">
               {item === ' ' ? '\u00A0' : item}
             </motion.span>
           ))}

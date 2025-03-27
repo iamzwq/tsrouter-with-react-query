@@ -52,7 +52,11 @@
       "show": true
     },
     "splitLine": {
-      "show": true
+      "show": true,
+      "lineStyle": {
+        "type": "dashed",
+        "color": "#DFE3E8"
+      }
     },
     "splitArea": {
       "show": false
