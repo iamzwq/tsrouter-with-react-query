@@ -10,15 +10,16 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as NotFoundImport } from './routes/not-found'
-import { Route as LayoutImport } from './routes/_layout'
-import { Route as LayoutIndexRouteImport } from './routes/_layout/index/route'
-import { Route as LayoutVchartIndexImport } from './routes/_layout/vchart/index'
-import { Route as LayoutPostsIndexImport } from './routes/_layout/posts/index'
-import { Route as LayoutEchartsIndexImport } from './routes/_layout/echarts/index'
-import { Route as authLoginIndexImport } from './routes/(auth)/login/index'
-import { Route as LayoutPostsIdIndexImport } from './routes/_layout/posts/$id/index'
+import { Route as rootRoute } from './routes/__root';
+import { Route as NotFoundImport } from './routes/not-found';
+import { Route as LayoutImport } from './routes/_layout';
+import { Route as LayoutIndexRouteImport } from './routes/_layout/index/route';
+import { Route as LayoutVchartIndexImport } from './routes/_layout/vchart/index';
+import { Route as LayoutPostsIndexImport } from './routes/_layout/posts/index';
+import { Route as LayoutFormExampleIndexImport } from './routes/_layout/form-example/index';
+import { Route as LayoutEchartsIndexImport } from './routes/_layout/echarts/index';
+import { Route as authLoginIndexImport } from './routes/(auth)/login/index';
+import { Route as LayoutPostsIdIndexImport } from './routes/_layout/posts/$id/index';
 
 // Create/Update Routes
 
@@ -26,186 +27,206 @@ const NotFoundRoute = NotFoundImport.update({
   id: '/not-found',
   path: '/not-found',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const LayoutRoute = LayoutImport.update({
   id: '/_layout',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const LayoutIndexRouteRoute = LayoutIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => LayoutRoute,
-} as any)
+} as any);
 
 const LayoutVchartIndexRoute = LayoutVchartIndexImport.update({
   id: '/vchart/',
   path: '/vchart/',
   getParentRoute: () => LayoutRoute,
-} as any)
+} as any);
 
 const LayoutPostsIndexRoute = LayoutPostsIndexImport.update({
   id: '/posts/',
   path: '/posts/',
   getParentRoute: () => LayoutRoute,
-} as any)
+} as any);
+
+const LayoutFormExampleIndexRoute = LayoutFormExampleIndexImport.update({
+  id: '/form-example/',
+  path: '/form-example/',
+  getParentRoute: () => LayoutRoute,
+} as any);
 
 const LayoutEchartsIndexRoute = LayoutEchartsIndexImport.update({
   id: '/echarts/',
   path: '/echarts/',
   getParentRoute: () => LayoutRoute,
-} as any)
+} as any);
 
 const authLoginIndexRoute = authLoginIndexImport.update({
   id: '/(auth)/login/',
   path: '/login/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const LayoutPostsIdIndexRoute = LayoutPostsIdIndexImport.update({
   id: '/posts/$id/',
   path: '/posts/$id/',
   getParentRoute: () => LayoutRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/_layout': {
-      id: '/_layout'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof LayoutImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/_layout';
+      path: '';
+      fullPath: '';
+      preLoaderRoute: typeof LayoutImport;
+      parentRoute: typeof rootRoute;
+    };
     '/not-found': {
-      id: '/not-found'
-      path: '/not-found'
-      fullPath: '/not-found'
-      preLoaderRoute: typeof NotFoundImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/not-found';
+      path: '/not-found';
+      fullPath: '/not-found';
+      preLoaderRoute: typeof NotFoundImport;
+      parentRoute: typeof rootRoute;
+    };
     '/_layout/': {
-      id: '/_layout/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof LayoutIndexRouteImport
-      parentRoute: typeof LayoutImport
-    }
+      id: '/_layout/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof LayoutIndexRouteImport;
+      parentRoute: typeof LayoutImport;
+    };
     '/(auth)/login/': {
-      id: '/(auth)/login/'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof authLoginIndexImport
-      parentRoute: typeof rootRoute
-    }
+      id: '/(auth)/login/';
+      path: '/login';
+      fullPath: '/login';
+      preLoaderRoute: typeof authLoginIndexImport;
+      parentRoute: typeof rootRoute;
+    };
     '/_layout/echarts/': {
-      id: '/_layout/echarts/'
-      path: '/echarts'
-      fullPath: '/echarts'
-      preLoaderRoute: typeof LayoutEchartsIndexImport
-      parentRoute: typeof LayoutImport
-    }
+      id: '/_layout/echarts/';
+      path: '/echarts';
+      fullPath: '/echarts';
+      preLoaderRoute: typeof LayoutEchartsIndexImport;
+      parentRoute: typeof LayoutImport;
+    };
+    '/_layout/form-example/': {
+      id: '/_layout/form-example/';
+      path: '/form-example';
+      fullPath: '/form-example';
+      preLoaderRoute: typeof LayoutFormExampleIndexImport;
+      parentRoute: typeof LayoutImport;
+    };
     '/_layout/posts/': {
-      id: '/_layout/posts/'
-      path: '/posts'
-      fullPath: '/posts'
-      preLoaderRoute: typeof LayoutPostsIndexImport
-      parentRoute: typeof LayoutImport
-    }
+      id: '/_layout/posts/';
+      path: '/posts';
+      fullPath: '/posts';
+      preLoaderRoute: typeof LayoutPostsIndexImport;
+      parentRoute: typeof LayoutImport;
+    };
     '/_layout/vchart/': {
-      id: '/_layout/vchart/'
-      path: '/vchart'
-      fullPath: '/vchart'
-      preLoaderRoute: typeof LayoutVchartIndexImport
-      parentRoute: typeof LayoutImport
-    }
+      id: '/_layout/vchart/';
+      path: '/vchart';
+      fullPath: '/vchart';
+      preLoaderRoute: typeof LayoutVchartIndexImport;
+      parentRoute: typeof LayoutImport;
+    };
     '/_layout/posts/$id/': {
-      id: '/_layout/posts/$id/'
-      path: '/posts/$id'
-      fullPath: '/posts/$id'
-      preLoaderRoute: typeof LayoutPostsIdIndexImport
-      parentRoute: typeof LayoutImport
-    }
+      id: '/_layout/posts/$id/';
+      path: '/posts/$id';
+      fullPath: '/posts/$id';
+      preLoaderRoute: typeof LayoutPostsIdIndexImport;
+      parentRoute: typeof LayoutImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface LayoutRouteChildren {
-  LayoutIndexRouteRoute: typeof LayoutIndexRouteRoute
-  LayoutEchartsIndexRoute: typeof LayoutEchartsIndexRoute
-  LayoutPostsIndexRoute: typeof LayoutPostsIndexRoute
-  LayoutVchartIndexRoute: typeof LayoutVchartIndexRoute
-  LayoutPostsIdIndexRoute: typeof LayoutPostsIdIndexRoute
+  LayoutIndexRouteRoute: typeof LayoutIndexRouteRoute;
+  LayoutEchartsIndexRoute: typeof LayoutEchartsIndexRoute;
+  LayoutFormExampleIndexRoute: typeof LayoutFormExampleIndexRoute;
+  LayoutPostsIndexRoute: typeof LayoutPostsIndexRoute;
+  LayoutVchartIndexRoute: typeof LayoutVchartIndexRoute;
+  LayoutPostsIdIndexRoute: typeof LayoutPostsIdIndexRoute;
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutIndexRouteRoute: LayoutIndexRouteRoute,
   LayoutEchartsIndexRoute: LayoutEchartsIndexRoute,
+  LayoutFormExampleIndexRoute: LayoutFormExampleIndexRoute,
   LayoutPostsIndexRoute: LayoutPostsIndexRoute,
   LayoutVchartIndexRoute: LayoutVchartIndexRoute,
   LayoutPostsIdIndexRoute: LayoutPostsIdIndexRoute,
-}
+};
 
 const LayoutRouteWithChildren =
-  LayoutRoute._addFileChildren(LayoutRouteChildren)
+  LayoutRoute._addFileChildren(LayoutRouteChildren);
 
 export interface FileRoutesByFullPath {
-  '': typeof LayoutRouteWithChildren
-  '/not-found': typeof NotFoundRoute
-  '/': typeof LayoutIndexRouteRoute
-  '/login': typeof authLoginIndexRoute
-  '/echarts': typeof LayoutEchartsIndexRoute
-  '/posts': typeof LayoutPostsIndexRoute
-  '/vchart': typeof LayoutVchartIndexRoute
-  '/posts/$id': typeof LayoutPostsIdIndexRoute
+  '': typeof LayoutRouteWithChildren;
+  '/not-found': typeof NotFoundRoute;
+  '/': typeof LayoutIndexRouteRoute;
+  '/login': typeof authLoginIndexRoute;
+  '/echarts': typeof LayoutEchartsIndexRoute;
+  '/form-example': typeof LayoutFormExampleIndexRoute;
+  '/posts': typeof LayoutPostsIndexRoute;
+  '/vchart': typeof LayoutVchartIndexRoute;
+  '/posts/$id': typeof LayoutPostsIdIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/not-found': typeof NotFoundRoute
-  '/': typeof LayoutIndexRouteRoute
-  '/login': typeof authLoginIndexRoute
-  '/echarts': typeof LayoutEchartsIndexRoute
-  '/posts': typeof LayoutPostsIndexRoute
-  '/vchart': typeof LayoutVchartIndexRoute
-  '/posts/$id': typeof LayoutPostsIdIndexRoute
+  '/not-found': typeof NotFoundRoute;
+  '/': typeof LayoutIndexRouteRoute;
+  '/login': typeof authLoginIndexRoute;
+  '/echarts': typeof LayoutEchartsIndexRoute;
+  '/form-example': typeof LayoutFormExampleIndexRoute;
+  '/posts': typeof LayoutPostsIndexRoute;
+  '/vchart': typeof LayoutVchartIndexRoute;
+  '/posts/$id': typeof LayoutPostsIdIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/_layout': typeof LayoutRouteWithChildren
-  '/not-found': typeof NotFoundRoute
-  '/_layout/': typeof LayoutIndexRouteRoute
-  '/(auth)/login/': typeof authLoginIndexRoute
-  '/_layout/echarts/': typeof LayoutEchartsIndexRoute
-  '/_layout/posts/': typeof LayoutPostsIndexRoute
-  '/_layout/vchart/': typeof LayoutVchartIndexRoute
-  '/_layout/posts/$id/': typeof LayoutPostsIdIndexRoute
+  __root__: typeof rootRoute;
+  '/_layout': typeof LayoutRouteWithChildren;
+  '/not-found': typeof NotFoundRoute;
+  '/_layout/': typeof LayoutIndexRouteRoute;
+  '/(auth)/login/': typeof authLoginIndexRoute;
+  '/_layout/echarts/': typeof LayoutEchartsIndexRoute;
+  '/_layout/form-example/': typeof LayoutFormExampleIndexRoute;
+  '/_layout/posts/': typeof LayoutPostsIndexRoute;
+  '/_layout/vchart/': typeof LayoutVchartIndexRoute;
+  '/_layout/posts/$id/': typeof LayoutPostsIdIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | ''
     | '/not-found'
     | '/'
     | '/login'
     | '/echarts'
+    | '/form-example'
     | '/posts'
     | '/vchart'
-    | '/posts/$id'
-  fileRoutesByTo: FileRoutesByTo
+    | '/posts/$id';
+  fileRoutesByTo: FileRoutesByTo;
   to:
     | '/not-found'
     | '/'
     | '/login'
     | '/echarts'
+    | '/form-example'
     | '/posts'
     | '/vchart'
-    | '/posts/$id'
+    | '/posts/$id';
   id:
     | '__root__'
     | '/_layout'
@@ -213,27 +234,28 @@ export interface FileRouteTypes {
     | '/_layout/'
     | '/(auth)/login/'
     | '/_layout/echarts/'
+    | '/_layout/form-example/'
     | '/_layout/posts/'
     | '/_layout/vchart/'
-    | '/_layout/posts/$id/'
-  fileRoutesById: FileRoutesById
+    | '/_layout/posts/$id/';
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  LayoutRoute: typeof LayoutRouteWithChildren
-  NotFoundRoute: typeof NotFoundRoute
-  authLoginIndexRoute: typeof authLoginIndexRoute
+  LayoutRoute: typeof LayoutRouteWithChildren;
+  NotFoundRoute: typeof NotFoundRoute;
+  authLoginIndexRoute: typeof authLoginIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   NotFoundRoute: NotFoundRoute,
   authLoginIndexRoute: authLoginIndexRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -251,6 +273,7 @@ export const routeTree = rootRoute
       "children": [
         "/_layout/",
         "/_layout/echarts/",
+        "/_layout/form-example/",
         "/_layout/posts/",
         "/_layout/vchart/",
         "/_layout/posts/$id/"
@@ -268,6 +291,10 @@ export const routeTree = rootRoute
     },
     "/_layout/echarts/": {
       "filePath": "_layout/echarts/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/form-example/": {
+      "filePath": "_layout/form-example/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/posts/": {

@@ -46,6 +46,9 @@ function LayoutComponent() {
           <Link to="/vchart" activeProps={{ className: 'font-bold text-(--primary-color)' }}>
             VChart
           </Link>
+          <Link to="/form-example" activeProps={{ className: 'font-bold text-(--primary-color)' }}>
+            Form Example
+          </Link>
         </div>
         <div className="ml-auto flex items-center gap-x-1">
           <ThemePopover />
