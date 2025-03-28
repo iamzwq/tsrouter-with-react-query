@@ -1,25 +1,41 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { Button, Grid } from '@mui/material';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { ControlledAutocomplete } from '~/components/ds-controlled-form/controlled-autocomplete';
-import { ControlledSelect } from '~/components/ds-controlled-form/controlled-select';
-import { ControlledTextField } from '~/components/ds-controlled-form/controlled-text-field';
+import {
+  ControlledAutocomplete,
+  ControlledCheckbox,
+  ControlledSelect,
+  ControlledTextField,
+} from '~/components/ds-controlled-form';
+import { LazyFallback } from '~/components/lazy-fallback';
 import { cities, countries } from './constants';
 
 export const Route = createFileRoute('/_layout/form-example/')({
   component: RouteComponent,
+  pendingComponent: LazyFallback,
 });
 
+const DEFAULT_VALUES = {
+  country: null,
+  cities: [],
+  username: '',
+  email: '',
+  age: 18,
+  gender: '',
+  interests: [],
+  agreeTerms: false,
+};
+
 function RouteComponent() {
+  const { data } = useSuspenseQuery({
+    queryKey: ['form-example', 'get-default-values'],
+    queryFn: () => new Promise<typeof DEFAULT_VALUES>(resolve => setTimeout(() => resolve(DEFAULT_VALUES), 1000)),
+  });
   const methods = useForm({
-    defaultValues: {
-      country: null,
-      cities: [],
-      username: '',
-      email: '',
-      age: 18,
-      gender: '',
-      interests: [],
+    values: data,
+    resetOptions: {
+      keepDirtyValues: true, // 保持脏字段不变，但更新默认值
     },
   });
 
@@ -122,13 +138,24 @@ function RouteComponent() {
               fullWidth
             />
           </Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}>
+            <ControlledCheckbox
+              name="agreeTerms"
+              label="我同意条款"
+              // required={true}
+              rules={{ required: 'You must agree to the terms and conditions' }}
+              checkboxProps={{
+                color: 'secondary',
+              }}
+            />
+          </Grid>
           <Grid size={{ xs: 12, md: 4, lg: 2 }}></Grid>
-          <Grid size={{ xs: 12, md: 4, lg: 2 }}></Grid>
-          <Grid size={{ xs: 12, md: 4, lg: 2 }}></Grid>
+          <Grid size={{ xs: 12, md: 4, lg: 2 }}>
+            <Button type="submit" variant="contained">
+              Submit
+            </Button>
+          </Grid>
         </Grid>
-        <Button type="submit" variant="contained">
-          Submit
-        </Button>
       </form>
     </FormProvider>
   );
