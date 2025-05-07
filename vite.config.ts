@@ -13,10 +13,11 @@ export default defineConfig(({ mode }) => {
       react(),
       tailwindcss(),
       TanStackRouterVite({
+        target: 'react',
         autoCodeSplitting: true,
         semicolons: true,
-        routeFileIgnorePattern:
-          '((constants|stores|hooks|apis|services|utils).ts)|constants|components|hooks|utils|types|apis|services|stores',
+        quoteStyle: 'single',
+        routeFileIgnorePattern: '(constants|stores|hooks|apis|services|utils|components|types)(.ts)?',
       }),
       {
         name: 'version-generator',
