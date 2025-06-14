@@ -1,0 +1,81 @@
+{
+  "name": "tsrouter-250218",
+  "homepage": "https://iamzwq.github.io/tsrouter-with-react-query/",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint . --fix",
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "commit": "git-cz",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@ebay/nice-modal-react": "^1.2.13",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@hookform/resolvers": "^5.1.1",
+    "@mui/icons-material": "^7.1.1",
+    "@mui/material": "^7.1.1",
+    "@tanstack/react-query": "^5.80.7",
+    "@tanstack/react-router": "^1.121.12",
+    "axios": "^1.9.0",
+    "echarts": "^5.6.0",
+    "jotai": "^2.12.5",
+    "motion": "^12.18.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-hook-form": "^7.57.0",
+    "sonner": "^2.0.5",
+    "zod": "^3.25.64"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/js": "^9.29.0",
+    "@tailwindcss/vite": "^4.1.10",
+    "@tanstack/react-query-devtools": "^5.80.7",
+    "@tanstack/router-plugin": "^1.121.12",
+    "@types/node": "^24.0.1",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "clsx": "^2.1.1",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.1",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "globals": "^16.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.12",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.10",
+    "terser": "^5.42.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.34.0",
+    "vite": "^6.3.5",
+    "vite-plugin-svgr": "^4.3.0"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,jsx,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{css,scss,json,md}": [
+      "prettier --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
