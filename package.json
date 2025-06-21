@@ -14,7 +14,6 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@ebay/nice-modal-react": "^1.2.13",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^5.1.1",
@@ -73,6 +72,10 @@
       "prettier --write"
     ]
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "pnpm@10.11.0",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

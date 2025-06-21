@@ -8,178 +8,107 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root';
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route';
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index';
+import { Route as errorNotFoundRouteImport } from './routes/(error)/not-found';
+import { Route as AuthenticatedTopProgressBarIndexRouteImport } from './routes/_authenticated/top-progress-bar/index';
+import { Route as AuthenticatedPokemonIndexRouteImport } from './routes/_authenticated/pokemon/index';
+import { Route as AuthenticatedFormIndexRouteImport } from './routes/_authenticated/form/index';
+import { Route as authLoginIndexRouteImport } from './routes/(auth)/login/index';
+import { Route as AuthenticatedPokemonIdIndexRouteImport } from './routes/_authenticated/pokemon/$id/index';
 
-import { Route as rootRoute } from './routes/__root';
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated/route';
-import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index';
-import { Route as errorNotFoundImport } from './routes/(error)/not-found';
-import { Route as AuthenticatedPokemonIndexImport } from './routes/_authenticated/pokemon/index';
-import { Route as AuthenticatedFormIndexImport } from './routes/_authenticated/form/index';
-import { Route as authLoginIndexImport } from './routes/(auth)/login/index';
-import { Route as AuthenticatedPokemonIdIndexImport } from './routes/_authenticated/pokemon/$id/index';
-
-// Create/Update Routes
-
-const AuthenticatedRouteRoute = AuthenticatedRouteImport.update({
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any);
-
-const AuthenticatedIndexRoute = AuthenticatedIndexImport.update({
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any);
-
-const errorNotFoundRoute = errorNotFoundImport.update({
+const errorNotFoundRoute = errorNotFoundRouteImport.update({
   id: '/(error)/not-found',
   path: '/not-found',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any);
-
-const AuthenticatedPokemonIndexRoute = AuthenticatedPokemonIndexImport.update({
-  id: '/pokemon/',
-  path: '/pokemon/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any);
-
-const AuthenticatedFormIndexRoute = AuthenticatedFormIndexImport.update({
+const AuthenticatedTopProgressBarIndexRoute =
+  AuthenticatedTopProgressBarIndexRouteImport.update({
+    id: '/top-progress-bar/',
+    path: '/top-progress-bar/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any);
+const AuthenticatedPokemonIndexRoute =
+  AuthenticatedPokemonIndexRouteImport.update({
+    id: '/pokemon/',
+    path: '/pokemon/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any);
+const AuthenticatedFormIndexRoute = AuthenticatedFormIndexRouteImport.update({
   id: '/form/',
   path: '/form/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any);
-
-const authLoginIndexRoute = authLoginIndexImport.update({
+const authLoginIndexRoute = authLoginIndexRouteImport.update({
   id: '/(auth)/login/',
   path: '/login/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any);
-
 const AuthenticatedPokemonIdIndexRoute =
-  AuthenticatedPokemonIdIndexImport.update({
+  AuthenticatedPokemonIdIndexRouteImport.update({
     id: '/pokemon/$id/',
     path: '/pokemon/$id/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any);
 
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/_authenticated': {
-      id: '/_authenticated';
-      path: '';
-      fullPath: '';
-      preLoaderRoute: typeof AuthenticatedRouteImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/(error)/not-found': {
-      id: '/(error)/not-found';
-      path: '/not-found';
-      fullPath: '/not-found';
-      preLoaderRoute: typeof errorNotFoundImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/_authenticated/': {
-      id: '/_authenticated/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof AuthenticatedIndexImport;
-      parentRoute: typeof AuthenticatedRouteImport;
-    };
-    '/(auth)/login/': {
-      id: '/(auth)/login/';
-      path: '/login';
-      fullPath: '/login';
-      preLoaderRoute: typeof authLoginIndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    '/_authenticated/form/': {
-      id: '/_authenticated/form/';
-      path: '/form';
-      fullPath: '/form';
-      preLoaderRoute: typeof AuthenticatedFormIndexImport;
-      parentRoute: typeof AuthenticatedRouteImport;
-    };
-    '/_authenticated/pokemon/': {
-      id: '/_authenticated/pokemon/';
-      path: '/pokemon';
-      fullPath: '/pokemon';
-      preLoaderRoute: typeof AuthenticatedPokemonIndexImport;
-      parentRoute: typeof AuthenticatedRouteImport;
-    };
-    '/_authenticated/pokemon/$id/': {
-      id: '/_authenticated/pokemon/$id/';
-      path: '/pokemon/$id';
-      fullPath: '/pokemon/$id';
-      preLoaderRoute: typeof AuthenticatedPokemonIdIndexImport;
-      parentRoute: typeof AuthenticatedRouteImport;
-    };
-  }
-}
-
-// Create and export the route tree
-
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
-  AuthenticatedFormIndexRoute: typeof AuthenticatedFormIndexRoute;
-  AuthenticatedPokemonIndexRoute: typeof AuthenticatedPokemonIndexRoute;
-  AuthenticatedPokemonIdIndexRoute: typeof AuthenticatedPokemonIdIndexRoute;
-}
-
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
-  AuthenticatedFormIndexRoute: AuthenticatedFormIndexRoute,
-  AuthenticatedPokemonIndexRoute: AuthenticatedPokemonIndexRoute,
-  AuthenticatedPokemonIdIndexRoute: AuthenticatedPokemonIdIndexRoute,
-};
-
-const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren);
-
 export interface FileRoutesByFullPath {
-  '': typeof AuthenticatedRouteRouteWithChildren;
   '/not-found': typeof errorNotFoundRoute;
   '/': typeof AuthenticatedIndexRoute;
   '/login': typeof authLoginIndexRoute;
   '/form': typeof AuthenticatedFormIndexRoute;
   '/pokemon': typeof AuthenticatedPokemonIndexRoute;
+  '/top-progress-bar': typeof AuthenticatedTopProgressBarIndexRoute;
   '/pokemon/$id': typeof AuthenticatedPokemonIdIndexRoute;
 }
-
 export interface FileRoutesByTo {
   '/not-found': typeof errorNotFoundRoute;
   '/': typeof AuthenticatedIndexRoute;
   '/login': typeof authLoginIndexRoute;
   '/form': typeof AuthenticatedFormIndexRoute;
   '/pokemon': typeof AuthenticatedPokemonIndexRoute;
+  '/top-progress-bar': typeof AuthenticatedTopProgressBarIndexRoute;
   '/pokemon/$id': typeof AuthenticatedPokemonIdIndexRoute;
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
+  __root__: typeof rootRouteImport;
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren;
   '/(error)/not-found': typeof errorNotFoundRoute;
   '/_authenticated/': typeof AuthenticatedIndexRoute;
   '/(auth)/login/': typeof authLoginIndexRoute;
   '/_authenticated/form/': typeof AuthenticatedFormIndexRoute;
   '/_authenticated/pokemon/': typeof AuthenticatedPokemonIndexRoute;
+  '/_authenticated/top-progress-bar/': typeof AuthenticatedTopProgressBarIndexRoute;
   '/_authenticated/pokemon/$id/': typeof AuthenticatedPokemonIdIndexRoute;
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | ''
     | '/not-found'
     | '/'
     | '/login'
     | '/form'
     | '/pokemon'
+    | '/top-progress-bar'
     | '/pokemon/$id';
   fileRoutesByTo: FileRoutesByTo;
-  to: '/not-found' | '/' | '/login' | '/form' | '/pokemon' | '/pokemon/$id';
+  to:
+    | '/not-found'
+    | '/'
+    | '/login'
+    | '/form'
+    | '/pokemon'
+    | '/top-progress-bar'
+    | '/pokemon/$id';
   id:
     | '__root__'
     | '/_authenticated'
@@ -188,68 +117,101 @@ export interface FileRouteTypes {
     | '/(auth)/login/'
     | '/_authenticated/form/'
     | '/_authenticated/pokemon/'
+    | '/_authenticated/top-progress-bar/'
     | '/_authenticated/pokemon/$id/';
   fileRoutesById: FileRoutesById;
 }
-
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren;
   errorNotFoundRoute: typeof errorNotFoundRoute;
   authLoginIndexRoute: typeof authLoginIndexRoute;
 }
 
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/_authenticated': {
+      id: '/_authenticated';
+      path: '';
+      fullPath: '';
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    '/_authenticated/': {
+      id: '/_authenticated/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport;
+      parentRoute: typeof AuthenticatedRouteRoute;
+    };
+    '/(error)/not-found': {
+      id: '/(error)/not-found';
+      path: '/not-found';
+      fullPath: '/not-found';
+      preLoaderRoute: typeof errorNotFoundRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    '/_authenticated/top-progress-bar/': {
+      id: '/_authenticated/top-progress-bar/';
+      path: '/top-progress-bar';
+      fullPath: '/top-progress-bar';
+      preLoaderRoute: typeof AuthenticatedTopProgressBarIndexRouteImport;
+      parentRoute: typeof AuthenticatedRouteRoute;
+    };
+    '/_authenticated/pokemon/': {
+      id: '/_authenticated/pokemon/';
+      path: '/pokemon';
+      fullPath: '/pokemon';
+      preLoaderRoute: typeof AuthenticatedPokemonIndexRouteImport;
+      parentRoute: typeof AuthenticatedRouteRoute;
+    };
+    '/_authenticated/form/': {
+      id: '/_authenticated/form/';
+      path: '/form';
+      fullPath: '/form';
+      preLoaderRoute: typeof AuthenticatedFormIndexRouteImport;
+      parentRoute: typeof AuthenticatedRouteRoute;
+    };
+    '/(auth)/login/': {
+      id: '/(auth)/login/';
+      path: '/login';
+      fullPath: '/login';
+      preLoaderRoute: typeof authLoginIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    '/_authenticated/pokemon/$id/': {
+      id: '/_authenticated/pokemon/$id/';
+      path: '/pokemon/$id';
+      fullPath: '/pokemon/$id';
+      preLoaderRoute: typeof AuthenticatedPokemonIdIndexRouteImport;
+      parentRoute: typeof AuthenticatedRouteRoute;
+    };
+  }
+}
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
+  AuthenticatedFormIndexRoute: typeof AuthenticatedFormIndexRoute;
+  AuthenticatedPokemonIndexRoute: typeof AuthenticatedPokemonIndexRoute;
+  AuthenticatedTopProgressBarIndexRoute: typeof AuthenticatedTopProgressBarIndexRoute;
+  AuthenticatedPokemonIdIndexRoute: typeof AuthenticatedPokemonIdIndexRoute;
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedFormIndexRoute: AuthenticatedFormIndexRoute,
+  AuthenticatedPokemonIndexRoute: AuthenticatedPokemonIndexRoute,
+  AuthenticatedTopProgressBarIndexRoute: AuthenticatedTopProgressBarIndexRoute,
+  AuthenticatedPokemonIdIndexRoute: AuthenticatedPokemonIdIndexRoute,
+};
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren);
+
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   errorNotFoundRoute: errorNotFoundRoute,
   authLoginIndexRoute: authLoginIndexRoute,
 };
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>();
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/_authenticated",
-        "/(error)/not-found",
-        "/(auth)/login/"
-      ]
-    },
-    "/_authenticated": {
-      "filePath": "_authenticated/route.tsx",
-      "children": [
-        "/_authenticated/",
-        "/_authenticated/form/",
-        "/_authenticated/pokemon/",
-        "/_authenticated/pokemon/$id/"
-      ]
-    },
-    "/(error)/not-found": {
-      "filePath": "(error)/not-found.tsx"
-    },
-    "/_authenticated/": {
-      "filePath": "_authenticated/index.tsx",
-      "parent": "/_authenticated"
-    },
-    "/(auth)/login/": {
-      "filePath": "(auth)/login/index.tsx"
-    },
-    "/_authenticated/form/": {
-      "filePath": "_authenticated/form/index.tsx",
-      "parent": "/_authenticated"
-    },
-    "/_authenticated/pokemon/": {
-      "filePath": "_authenticated/pokemon/index.tsx",
-      "parent": "/_authenticated"
-    },
-    "/_authenticated/pokemon/$id/": {
-      "filePath": "_authenticated/pokemon/$id/index.tsx",
-      "parent": "/_authenticated"
-    }
-  }
-}
-ROUTE_MANIFEST_END */

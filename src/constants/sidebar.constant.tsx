@@ -16,7 +16,7 @@ export interface MenuItem {
   text: string;
   icon: React.ReactElement;
   path?: string;
-  children?: MenuItem[]; // 关键改动：允许无限嵌套
+  children?: MenuItem[];
 }
 
 export const MENU_ITEMS: MenuItem[] = [
@@ -28,6 +28,7 @@ export const MENU_ITEMS: MenuItem[] = [
     path: '/form',
   },
   { key: 'pokemon', text: '宝可梦', icon: <CatchingPokemonIcon />, path: '/pokemon' },
+  { key: 'top-progress-bar', text: 'TopProgressBar', icon: <CatchingPokemonIcon />, path: '/top-progress-bar' },
   {
     key: 'management',
     text: '管理',
@@ -44,7 +45,6 @@ export const MENU_ITEMS: MenuItem[] = [
         key: 'report-archived',
         text: '归档报告',
         icon: <ArchiveIcon />,
-        // 嵌套第二层
         children: [
           { key: 'report-2023', text: '2023年报告', icon: <ListIcon />, path: '/reports/archived/2023' },
           { key: 'report-2022', text: '2022年报告', icon: <ListIcon />, path: '/reports/archived/2022' },

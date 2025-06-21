@@ -1,6 +1,5 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import NiceModal from '@ebay/nice-modal-react';
 import { ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -52,9 +51,7 @@ createRoot(document.getElementById('root')!).render(
         colorSchemeStorageKey="app-color-scheme"
         disableTransitionOnChange
       >
-        <NiceModal.Provider>
-          <RouterProvider router={router} />
-        </NiceModal.Provider>
+        <RouterProvider router={router} />
       </ThemeProvider>
       {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>

@@ -32,8 +32,7 @@
 
 ### 其他
 
-- **@ebay/nice-modal-react**: 实现声明式模态框。
-- **react-toastify**: 用于显示通知消息。
+- **sonner**: 用于显示通知消息。
 
 ### 特色实现
 
