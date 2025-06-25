@@ -61,7 +61,7 @@ function RouteComponent() {
                 gap: 4,
               }}
             >
-              <img src={reactLogo} alt="Logo" style={{ height: '60px', animation: 'spin 10s linear infinite' }} />
+              <img src={reactLogo} alt="Logo" className="h-[60px] animate-spin" />
               <Typography variant="h3" fontWeight="bold">
                 React Admin
               </Typography>
