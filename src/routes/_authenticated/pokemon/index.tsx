@@ -29,6 +29,9 @@ export const Route = createFileRoute('/_authenticated/pokemon/')<{
   loader({ context: { queryClient }, deps }) {
     queryClient.ensureQueryData(getPokemonsQueryOptions(deps));
   },
+  head: () => ({
+    meta: [{ title: '宝可梦列表' }],
+  }),
 });
 
 function RouteComponent() {
@@ -38,7 +41,7 @@ function RouteComponent() {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {data?.pokemons.map(pokemon => <PokemonCard key={pokemon.id} pokemon={pokemon} />)}
       </div>
       <PokemonPagination total={data?.total || 0} />

@@ -3,6 +3,7 @@ import { Box, IconButton, Typography } from '@mui/material';
 import { Link } from '@tanstack/react-router';
 import { Outlet } from '@tanstack/react-router';
 import { useAtom } from 'jotai';
+import { Breadcrumb } from '~/components/breadcrumb';
 import { SidebarFillIcon, SidebarIcon } from '~/components/icons';
 import { sidebarCollapsedAtom } from '~/stores';
 import { AccountMenu } from './account-menu';
@@ -50,6 +51,7 @@ export function AuthenticatedLayout() {
       <main className="flex grow">
         <Sidebar mobileOpen={false} onMobileClose={() => {}} isCollapsed={isCollapsed} />
         <div className="grow overflow-x-hidden p-2">
+          <Breadcrumb />
           <Outlet />
         </div>
       </main>

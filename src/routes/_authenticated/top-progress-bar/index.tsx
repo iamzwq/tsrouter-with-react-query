@@ -4,6 +4,9 @@ import { progressBar } from '~/components/my-n-progress';
 
 export const Route = createFileRoute('/_authenticated/top-progress-bar/')({
   component: RouteComponent,
+  head: () => ({
+    meta: [{ title: '进度条演示' }],
+  }),
 });
 
 function RouteComponent() {

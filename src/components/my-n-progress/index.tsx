@@ -1,107 +1,3 @@
-// import { useCallback, useImperativeHandle, useRef, useState } from 'react';
-
-// export type TopLoadingBarRef = {
-//   start: () => void;
-//   finish: () => void;
-//   reset: () => void;
-// };
-
-// /**
-//  * 顶部加载条
-//  * @param height bar 高度
-//  * @param color bar 颜色
-//  * @param ref ref
-//  * @example
-//  * function App() {
-//  *   const loadingBarRef = useRef<TopLoadingBarRef>(null);
-//  *   return (
-//  *     <>
-//  *       <TopLoadingBar ref={loadingBarRef} color="red" height={3} />
-//  *       <button onClick={() => loadingBarRef.current?.start()}>开始</button>
-//  *       <button onClick={() => loadingBarRef.current?.finish()}>完成</button>
-//  *       <button onClick={() => loadingBarRef.current?.reset()}>重置</button>
-//  *     </>
-//  *   );
-//  * }
-//  */
-// export function TopLoadingBar({
-//   height = 3,
-//   color = '#29d',
-//   ref,
-// }: {
-//   height?: number;
-//   color?: string;
-//   ref: React.RefObject<TopLoadingBarRef | null>;
-// }) {
-//   const [progress, setProgress] = useState(0);
-//   const animationRef = useRef<number>(null);
-
-//   const start = useCallback(() => {
-//     setProgress(10);
-//     if (animationRef.current) {
-//       cancelAnimationFrame(animationRef.current);
-//     }
-
-//     const updateProgress = () => {
-//       setProgress(prev => {
-//         if (prev >= 90) {
-//           return prev;
-//         }
-//         const increment = Math.min(90 - prev, Math.random() * 10);
-//         return prev + increment;
-//       });
-
-//       // 在进度小于 90 时继续更新
-//       if (progress < 90) {
-//         animationRef.current = requestAnimationFrame(updateProgress);
-//       }
-//     };
-
-//     animationRef.current = requestAnimationFrame(updateProgress);
-//   }, [progress]);
-
-//   const finish = useCallback(() => {
-//     setProgress(100);
-//     setTimeout(() => {
-//       setProgress(0);
-//       if (animationRef.current) {
-//         cancelAnimationFrame(animationRef.current);
-//       }
-//     }, 300);
-//   }, []);
-
-//   const reset = useCallback(() => {
-//     setProgress(0);
-//     if (animationRef.current) {
-//       cancelAnimationFrame(animationRef.current);
-//     }
-//   }, []);
-
-//   useImperativeHandle(ref, () => ({
-//     start,
-//     finish,
-//     reset,
-//   }));
-
-//   return (
-//     <div
-//       style={{
-//         position: 'fixed',
-//         top: 0,
-//         left: 0,
-//         height: `${height}px`,
-//         backgroundColor: color,
-//         transition: 'width 0.3s ease-in-out, opacity 0.3s ease-in-out',
-//         width: `${progress}%`,
-//         opacity: progress === 0 ? 0 : 1,
-//         zIndex: 9999,
-//       }}
-//     />
-//   );
-// }
-
-// src/components/top-loading-bar/index.ts
-
 import { createRoot, Root } from 'react-dom/client';
 import { ProgressBar } from './progress-bar';
 
@@ -159,14 +55,8 @@ function trickle() {
   render(status);
 }
 
-// --- 公共 API ---
-
 export const progressBar = {
-  /**
-   * 开始显示进度条并自动增加
-   */
   start: () => {
-    // 如果已经开始了，只是重置 trick-timer
     if (timer) clearInterval(timer);
 
     status = 0;
@@ -175,9 +65,6 @@ export const progressBar = {
     timer = setInterval(trickle, SETTINGS.trickleSpeed);
   },
 
-  /**
-   * 完成进度条，然后平滑消失
-   */
   done: () => {
     if (timer) {
       clearInterval(timer);
