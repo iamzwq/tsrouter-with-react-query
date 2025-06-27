@@ -1,4 +1,4 @@
-import type { Pagination } from '~/types/common.interface';
+import type { Pagination } from '~/modules/common/common.interface';
 
 export async function getPokemons(params: Pagination) {
   const { page = 1, limit = 12 } = params;

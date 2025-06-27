@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
-import { typeColors } from '~/constants/pokemon.constant';
-import type { BasicPokemon } from '~/types/pokemon.interface';
+import { typeColors } from '~/modules/pokemon/constant';
+import type { BasicPokemon } from '~/modules/pokemon/type';
 
 export function PokemonCard({ pokemon }: { pokemon: BasicPokemon }) {
   return (

@@ -1,7 +1,7 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { getRouteApi } from '@tanstack/react-router';
-import type { Pagination } from '~/types/common.interface';
+import type { Pagination } from '~/modules/common/common.interface';
 
 const routeApi = getRouteApi('/_authenticated/pokemon/');
 

@@ -1,10 +1,10 @@
 import { keepPreviousData, queryOptions, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getPokemons } from '~/apis/pokemon/pokemon.api';
 import { FullscreenSpinner } from '~/components/fullscreen-spinner';
 import { useDelayLoading } from '~/hooks';
-import type { Pagination } from '~/types/common.interface';
+import type { Pagination } from '~/modules/common/common.interface';
+import { getPokemons } from '~/modules/pokemon/api';
 import { PokemonCard } from './components/pokemon-card';
 import { PokemonPagination } from './components/pokemon-pagination';
 
