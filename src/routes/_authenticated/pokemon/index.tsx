@@ -1,16 +1,14 @@
 import { keepPreviousData, queryOptions, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { FullscreenSpinner } from '~/components/fullscreen-spinner';
-import { useDelayLoading } from '~/hooks';
-import type { Pagination } from '~/modules/common/common.interface';
+import { Loading } from '~/components/loading';
 import { getPokemons } from '~/modules/pokemon/api';
 import { PokemonCard } from './components/pokemon-card';
 import { PokemonPagination } from './components/pokemon-pagination';
 
 const searchSchema = z.object({
   page: z.number().default(1),
-  limit: z.number().default(12),
+  limit: z.number().default(8),
 });
 
 const getPokemonsQueryOptions = (pagination: Pagination) =>
@@ -35,17 +33,22 @@ export const Route = createFileRoute('/_authenticated/pokemon/')<{
 });
 
 function RouteComponent() {
-  const { data, isFetching } = useQuery(getPokemonsQueryOptions(Route.useSearch()));
+  const { data, isLoading } = useQuery(getPokemonsQueryOptions(Route.useSearch()));
 
-  const isFetchingDelay = useDelayLoading(isFetching, 2000);
+  if (isLoading) {
+    return (
+      <div className="flex h-10/12 items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="mb-3 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {data?.pokemons.map(pokemon => <PokemonCard key={pokemon.id} pokemon={pokemon} />)}
       </div>
       <PokemonPagination total={data?.total || 0} />
-      {isFetchingDelay && <FullscreenSpinner />}
     </>
   );
 }

@@ -9,10 +9,10 @@ export function PokemonCard({ pokemon }: { pokemon: BasicPokemon }) {
         <img
           src={pokemon.image}
           alt={pokemon.name}
-          className="h-44 w-full cursor-pointer bg-red-100 object-contain p-4"
+          className="h-20 w-full cursor-pointer bg-red-100 object-contain p-2"
         />
       </Link>
-      <div className="p-4">
+      <div className="p-2">
         <div className="mb-2 flex items-center justify-between">
           <h2 className="text-xl font-semibold text-red-900 capitalize">{pokemon.name}</h2>
           <span className="font-medium text-red-700">#{pokemon.id}</span>

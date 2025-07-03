@@ -1,10 +1,8 @@
-import type { Pagination } from '~/modules/common/common.interface';
-
 export async function getPokemons(params: Pagination) {
-  const { page = 1, limit = 12 } = params;
+  const { page = 1, limit = 8 } = params;
   const offset = (page - 1) * limit;
 
-  // await new Promise((resolve) => setTimeout(resolve, 1500))
+  await new Promise(resolve => setTimeout(resolve, 1500));
 
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);

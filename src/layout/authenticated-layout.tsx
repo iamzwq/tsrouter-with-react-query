@@ -5,7 +5,7 @@ import { Outlet } from '@tanstack/react-router';
 import { useAtom } from 'jotai';
 import { Breadcrumb } from '~/components/breadcrumb';
 import { SidebarFillIcon, SidebarIcon } from '~/components/icons';
-import { sidebarCollapsedAtom } from '~/stores';
+import { sidebarCollapsedAtom } from '~/modules/common/store';
 import { AccountMenu } from './account-menu';
 import { NotificationsPopover } from './notifications-popover';
 import { Sidebar } from './sidebar';
@@ -39,6 +39,7 @@ export function AuthenticatedLayout() {
             {isCollapsed ? <SidebarIcon /> : <SidebarFillIcon />}
           </IconButton>
         </div>
+        <Breadcrumb />
         <div className="ml-auto flex items-center gap-x-1">
           <ThemeSwitch />
           <IconButton className="animate-spin">
@@ -51,7 +52,6 @@ export function AuthenticatedLayout() {
       <main className="flex grow">
         <Sidebar mobileOpen={false} onMobileClose={() => {}} isCollapsed={isCollapsed} />
         <div className="grow overflow-x-hidden p-2">
-          <Breadcrumb />
           <Outlet />
         </div>
       </main>

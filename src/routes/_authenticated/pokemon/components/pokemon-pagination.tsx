@@ -1,7 +1,7 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Button } from '@mui/material';
 import { getRouteApi } from '@tanstack/react-router';
-import type { Pagination } from '~/modules/common/common.interface';
 
 const routeApi = getRouteApi('/_authenticated/pokemon/');
 
@@ -10,31 +10,37 @@ export function PokemonPagination({ total }: { total: number }) {
   const navigate = routeApi.useNavigate();
   return (
     <div className="flex items-center justify-center">
-      <button
-        disabled={page <= 1}
-        className="flex cursor-pointer items-center rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
-        onClick={() => {
-          if (page > 1) {
-            navigate({ search: { page: page - 1 } });
-          }
-        }}
-      >
-        <ArrowBackIosIcon /> 前一页
-      </button>
+      <span style={{ cursor: page <= 1 ? 'not-allowed' : 'unset' }}>
+        <Button
+          disabled={page <= 1}
+          variant="contained"
+          startIcon={<ArrowBackIosIcon />}
+          onClick={() => {
+            if (page > 1) {
+              navigate({ search: { page: page - 1 } });
+            }
+          }}
+        >
+          前一页
+        </Button>
+      </span>
       <div className="mx-4">
         {page} / {total}
       </div>
-      <button
-        disabled={page >= total}
-        className="flex cursor-pointer items-center rounded-md bg-red-500 px-4 py-2 text-white hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
-        onClick={() => {
-          if (page < total) {
-            navigate({ search: { page: page + 1 } });
-          }
-        }}
-      >
-        后一页 <ArrowForwardIosIcon />
-      </button>
+      <span style={{ cursor: page >= total ? 'not-allowed' : 'unset' }}>
+        <Button
+          disabled={page >= total}
+          variant="contained"
+          endIcon={<ArrowForwardIosIcon />}
+          onClick={() => {
+            if (page < total) {
+              navigate({ search: { page: page + 1 } });
+            }
+          }}
+        >
+          后一页
+        </Button>
+      </span>
     </div>
   );
 }
