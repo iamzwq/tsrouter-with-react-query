@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Logout } from '@mui/icons-material';
-import { Avatar, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { Avatar, Box, IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material';
 import { useLocation, useNavigate } from '@tanstack/react-router';
+import { useAtomValue } from 'jotai';
+import { userAtom } from '~/modules/auth/store';
 
 export function AccountMenu() {
   const navigate = useNavigate();
   const location = useLocation();
+  const user = useAtomValue(userAtom);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = event => {
@@ -15,10 +18,13 @@ export function AccountMenu() {
     setAnchorEl(null);
   };
   return (
-    <>
+    <Box className="flex items-center">
       <IconButton onClick={handleClick} size="small" sx={{ ml: 1 }}>
         <Avatar src="https://multiavatar.com/img/logo-animated.gif?v=003" sx={{ width: 32, height: 32 }} />
       </IconButton>
+      <Typography variant="body2" sx={{ ml: 1, textTransform: 'capitalize' }}>
+        {user?.username}
+      </Typography>
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -61,6 +67,6 @@ export function AccountMenu() {
           Logout
         </MenuItem>
       </Menu>
-    </>
+    </Box>
   );
 }

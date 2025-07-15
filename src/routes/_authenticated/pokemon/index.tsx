@@ -1,10 +1,10 @@
 import { keepPreviousData, queryOptions, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { Loading } from '~/components/loading';
+import { Loader } from '~/components/loader';
 import { getPokemons } from '~/modules/pokemon/api';
-import { PokemonCard } from './components/pokemon-card';
-import { PokemonPagination } from './components/pokemon-pagination';
+import { PokemonCard } from '~/modules/pokemon/components/pokemon-card';
+import { PokemonPagination } from '~/modules/pokemon/components/pokemon-pagination';
 
 const searchSchema = z.object({
   page: z.number().default(1),
@@ -27,6 +27,9 @@ export const Route = createFileRoute('/_authenticated/pokemon/')<{
   loader({ context: { queryClient }, deps }) {
     queryClient.ensureQueryData(getPokemonsQueryOptions(deps));
   },
+  context: () => ({
+    breadcrumb: '宝可梦列表',
+  }),
   head: () => ({
     meta: [{ title: '宝可梦列表' }],
   }),
@@ -38,7 +41,7 @@ function RouteComponent() {
   if (isLoading) {
     return (
       <div className="flex h-10/12 items-center justify-center">
-        <Loading />
+        <Loader />
       </div>
     );
   }

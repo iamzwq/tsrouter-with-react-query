@@ -5,14 +5,15 @@ import { useMatches } from '@tanstack/react-router';
 
 export function Breadcrumb() {
   const matches = useMatches();
+  console.log('matches 👉：', { matches });
 
   // 过滤掉根路由和没有标题的路由
   const breadcrumbItems = matches
-    .filter(match => match.fullPath !== '/' && match.meta?.[0]?.title)
+    .filter(match => match.fullPath !== '/' && match.context?.breadcrumb)
     .map(match => ({
       id: match.id,
       fullPath: match.fullPath,
-      meta: match.meta,
+      breadcrumb: match.context.breadcrumb,
     }));
 
   // 如果没有面包屑项，则不显示面包屑
@@ -34,7 +35,7 @@ export function Breadcrumb() {
         return isLast ? (
           // 最后一项不可点击
           <Typography key={item.id} color="text.primary" className="flex items-center">
-            {item.meta?.[0]?.title}
+            {item.breadcrumb}
           </Typography>
         ) : (
           // 中间项可点击
@@ -43,7 +44,7 @@ export function Breadcrumb() {
             to={item.fullPath as unknown as any}
             className="hover:text-primary-600 flex items-center text-gray-600 hover:underline"
           >
-            {item.meta?.[0]?.title}
+            {item.breadcrumb}
           </Link>
         );
       })}

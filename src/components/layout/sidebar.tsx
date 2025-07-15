@@ -14,7 +14,7 @@ import {
   Toolbar,
 } from '@mui/material';
 import { Link as RouterLink, useLocation } from '@tanstack/react-router';
-import { MENU_ITEMS, MenuItem, MIN_WIDTH, WIDTH } from '~/modules/common/constant';
+import { MENU_ITEMS, MenuItem, MIN_WIDTH, WIDTH } from '~/common/constant';
 
 interface PopoverState {
   anchorEl: HTMLElement;

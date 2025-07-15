@@ -18,8 +18,10 @@ import {
   Typography,
 } from '@mui/material';
 import { useNavigate } from '@tanstack/react-router';
+import { useSetAtom } from 'jotai';
 import { z } from 'zod';
 import { ControlledTextField } from '~/components/controlled-form';
+import { userAtom } from '~/modules/auth/store';
 
 const formSchema = z.object({
   username: z.string().min(1, { message: '用户名不能为空' }),
@@ -29,6 +31,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export function LoginForm() {
+  const setUser = useSetAtom(userAtom);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -44,7 +47,10 @@ export function LoginForm() {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(data => {
-    console.log(data, { rememberMe });
+    setUser({
+      id: '1',
+      username: data.username,
+    });
     const to = new URLSearchParams(location.search).get('redirectTo') || '/';
     navigate({ to });
   });
@@ -54,7 +60,7 @@ export function LoginForm() {
   };
 
   return (
-    <Box component="form" onSubmit={onSubmit} className="flex flex-col gap-5">
+    <Box component="form" onSubmit={onSubmit} className="flex flex-col gap-4">
       <ControlledTextField
         name="username"
         control={control}
