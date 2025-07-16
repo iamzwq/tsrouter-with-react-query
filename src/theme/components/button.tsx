@@ -1,4 +1,4 @@
-import type { Components, CssVarsTheme, Theme } from '@mui/material';
+import type { Components, CssVarsTheme, Theme } from '@mui/material/styles';
 
 export const MuiButton: Components<Omit<Theme, 'components' | 'palette'> & CssVarsTheme>['MuiButton'] = {
   defaultProps: {
@@ -7,16 +7,13 @@ export const MuiButton: Components<Omit<Theme, 'components' | 'palette'> & CssVa
     color: 'inherit',
   },
   styleOverrides: {
-    root: ({ ownerState }) => ({
+    root: {
       textTransform: 'none',
       boxShadow: 'none',
       '&:hover': {
         boxShadow: 'none',
       },
-      ...(ownerState.rounded ? { borderRadius: '50rem' } : {}),
-      '.MuiButton-startIcon': { marginRight: 0 },
-      '.MuiButton-endIcon': { marginLeft: 0 },
-    }),
+    },
     containedInherit: ({ theme }) => ({
       color: theme.vars.palette.common.white,
       backgroundColor: theme.vars.palette.grey[800],
