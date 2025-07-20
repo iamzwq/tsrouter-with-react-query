@@ -44,6 +44,10 @@
   --bg-color: var(--palette-background-default);
 }
 
+body {
+  overscroll-behavior: none;
+}
+
 #root {
   min-height: 100vh;
   display: flex;

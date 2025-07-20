@@ -25,7 +25,7 @@ export function AuthenticatedLayout() {
         sx={{
           zIndex: theme => theme.zIndex.drawer + 1,
           background: 'rgba(var(--palette-background-defaultChannel), 0.8)',
-          backdropFilter: 'blur(6px)',
+          backdropFilter: 'blur(12px)',
         }}
       >
         <Box className="mx-1 flex h-5 shrink-0 items-center space-x-1 rounded-lg" component={Link} to="/">
